@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/ssh/!svn/ver/300/trunk/WebContent/static/css
+END
+login.css
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/ssh/!svn/ver/300/trunk/WebContent/static/css/login.css
+END
+base.css
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/ssh/!svn/ver/300/trunk/WebContent/static/css/base.css
+END
+easyui_extend.css
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/ssh/!svn/ver/300/trunk/WebContent/static/css/easyui_extend.css
+END

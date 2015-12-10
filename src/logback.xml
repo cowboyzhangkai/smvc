@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Reference Manual http://logback.qos.ch/manual/index.html -->
+<!-- For assistance related to logback-translator or configuration -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- -->
+<!-- For professional support please see -->
+<!-- http://www.qos.ch/shop/products/professionalSupport -->
+<!-- -->
+<configuration>
+	<!-- 一些配置参数，请查看config.properties -->
+	<contextName>${contextName}</contextName>
+
+	<appender name="file" class="ch.qos.logback.core.FileAppender">
+		<file>/home/smvc.log</file> 
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="fileback" class="ch.qos.logback.core.FileAppender">
+		<file>/home/smvc.log</file> 
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="debug">
+		<appender-ref ref="file" />
+		<appender-ref ref="fileback" />
+	</root>
+
+	<!-- 本应用的配置 -->
+	<logger name="cn.com.cowboy.project.web.controller" level="DEBUG" />
+
+	<!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
+	<logger name="com.opensymphony" level="WARN" />
+	<logger name="org.apache" level="WARN" />
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.hibernate" level="WARN" />
+
+	<!-- show parameters for hibernate sql 专为 Hibernate 定制，调试情况下才开启 -->
+	<!--<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/> -->
+	<!--<logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG"/> -->
+	<!--<logger name="org.hibernate.SQL" level="DEBUG"/> -->
+	<!--<logger name="org.hibernate.engine.QueryParameters" level="DEBUG"/> -->
+	<!--<logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG"/> -->
+
+</configuration>

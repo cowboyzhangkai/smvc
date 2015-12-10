@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.cowboy.project.dao.DepartmentMapper">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+
+	<resultMap id="DepartmentMap" type="Department">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="position" property="position" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id as id,
+		name as name,
+		position as position
+	</sql>
+
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id}</if>
+				<if test="name != null">and name = #{name}</if>
+				<if test="position != null">and position = #{position}</if>
+			</trim>
+		</where>
+	</sql>
+
+	<!-- 查询 -->
+	<select id="findAll" resultMap="DepartmentMap" parameterType="java.util.List">
+		select
+		*
+		from department
+	</select>
+
+	<!-- 添加 -->
+	<insert id="save" parameterType="Department" keyProperty="id">
+		insert
+		into users(
+		id,
+		position
+		)
+		values
+		(
+		#{id},
+		#{name},
+		#{position}
+		)
+
+	</insert>
+</mapper>

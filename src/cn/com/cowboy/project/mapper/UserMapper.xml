@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.cowboy.project.dao.UserMapper">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+
+	<resultMap id="UserMap" type="Users">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="cn_name" property="cnName" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+		<result column="last_login" property="lastLogin" jdbcType="VARCHAR" />
+		<result column="is_active" property="isActive" jdbcType="VARCHAR" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<association property="department" column="department_id" javaType="Department" select="queryDepartment"/>
+	</resultMap>
+	
+	<select id="queryDepartment" resultType="Department" >  
+        select * from department where id =#{id}  
+    </select>  
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+			    1=1
+				<if test="m.id != null"> and id = #{m.id}</if>
+				<!-- 模糊查询 -->
+				<if test="m.name != null">and name like CONCAT("%",#{m.name},"%")</if>
+				<if test="m.cnName != null">and cn_name like CONCAT("%",#{m.cnName},"%")</if>
+			</trim>
+		</where>
+	</sql>
+
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="UserMap">
+		select
+		*
+		from users
+	</select>
+	
+	<!-- 根据id条件查询 -->
+	<select id="findById" resultMap="UserMap">
+		select
+		*
+		from users
+		where id=#{id}
+	</select>
+	
+	<!-- 根据name条件查询 -->
+	<select id="findByName" resultMap="UserMap">
+		select
+		*
+		from users
+		where name=#{loginName}
+	</select>
+	
+	<!-- 根据条件基本查询 -->
+	<select id="findListByExample" resultMap="UserMap">
+		select
+		u.*
+		from users u
+		left outer join department dept on u.department_id=dept.id
+		<include refid="Base_Where_Clause" />
+		<if test="m.department != null">and dept.name like CONCAT("%",#{m.department.name},"%")</if>
+	</select>
+	
+	<!-- 根据条件基本查询 -->
+	<select id="findPageByExample" resultMap="UserMap">  
+        select u.*,d.*  from users u left join department d on u.department_id=d.id
+		<include refid="Base_Where_Clause" />
+		<if test="m.department != null">and d.name like CONCAT("%",#{m.department.name},"%")</if>
+        limit #{pageNo,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER}  
+    </select>
+	
+	<select id="getTotalCount" resultType="int">  
+        select
+		count(u.id)
+		from users u
+		left outer join department dept on u.department_id=dept.id
+		<include refid="Base_Where_Clause" />
+		<if test="department != null">and dept.name like CONCAT("%",#{department.name},"%")</if>
+    </select> 
+
+	<!-- 添加 -->
+	<insert id="save" parameterType="Users" keyProperty="id">
+		insert into users
+		(id,name,password,cn_name,gender,mobile,phone,department_id,create_time,is_active,salt)
+		values
+		(#{t.id},#{t.name},Md5(#{t.password}),#{t.cnName},#{t.gender},#{t.mobile},#{t.phone},#{t.department.id},#{t.createTime},#{t.isActive}
+		#(t.salt))
+	</insert>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+	  delete from users where id=#{id}
+	</delete>
+	
+	<!-- 根据ID修改 -->
+	<update id="updateById">
+	    update users
+	    <set>
+			<if test="m.name != null">name = #{t.name},</if>
+			<if test="m.password != null">password = Md5(#{m.password}),</if>
+			cnName = #{m.cnName},
+			gender = #{m.gender},
+			mobile = #{m.mobile},
+			phone = #{m.phone},
+			<if test="m.department!=null">department.id = #{m.department.id},</if>
+			isActive = #{t.isActive}
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据ID修改密码 -->
+	<update id="changePwd" parameterType="java.lang.String">
+	    update users
+	    <set>
+			<if test="m.password != null">password = Md5(#{newPwd})</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

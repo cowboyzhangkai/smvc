@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<project basedir="." default="pack" name="smvc">
+	<description>
+		The ANT Build File.
+		Author: cowboy
+	</description>
+	<tstamp prefix="timer">
+		<format property="stamp" pattern="yyyyMMddHHmm" />
+		<format property="YEAR" pattern="yyyy" />
+		<format property="display-stamp" pattern="yyyy-MM-dd HH:mm" />
+	</tstamp>
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+	<property name="WEB-INF" value="WebContent/WEB-INF" />
+	<property name="WebContent.dir" location="WebContent" />
+	<property name="lib.dir" location="${WEB-INF}/lib" />
+	<property name="src.dir" location="src" />
+	<property name="project.dir" location="war/${ant.project.name}" />
+	<property name="classes.dir" location="${project.dir}/WEB-INF/classes" />
+	<property name="classes.lib.dir" location="${project.dir}/WEB-INF/lib" />
+	<property name="classes.lib.dir.bak" value="common_lib" />
+	<property name="dist.dir" value="dist" />
+	<property name="final.dist.patch" value="${dist.dir}/${ant.project.name}-${timer.stamp}" />
+	<property name="classes.jar.patch" value="${classes.lib.dir}/main.jar" />
+	<property name="jre.rt.jar" value="${java.home}/lib/rt.jar" />
+	<property name="obfuscator.classes.jar.name" value="rt.jar" />
+	<property name="obfuscator.classes.jar.patch" value="${classes.lib.dir}/${obfuscator.classes.jar.name}" />
+
+	<!-- hibernate-tools configs -->
+	<property name="ant.tools" location="${basedir}/ant-libs" />
+	<property name="base_package" value="cn.com.cowboy.${ant.project.name}" />
+	<!-- end -->
+	<property name="proguard-jar" value="${ant.tools}/proguard.jar" />
+
+	<!-- for dist config -->
+	<property name="host" value="" />
+	<property name="user" value="" />
+	<property name="password" value="" />
+	<property name="remote.dir" value="" />
+
+	<defaultexcludes remove="**/.svn" />
+
+	<!-- set classpath -->
+	<path id="classpath">
+		<fileset file="${lib.dir}/*.jar" />
+		<pathelement path="${classes.dir}" />
+	</path>
+	<!-- ===================================
+          target: init
+         ================================= -->
+	<target name="init" depends="clean">
+		<mkdir dir="${project.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${classes.lib.dir.bak}" />
+		<copy todir="${project.dir}" encoding="utf-8" includeemptydirs="false">
+			<fileset dir="${WebContent.dir}" defaultexcludes="yes">
+				<exclude name="WEB-INF/classes/**/*.class" />
+			</fileset>
+		</copy>
+		<copy todir="${classes.dir}" encoding="utf-8" includeemptydirs="false">
+			<fileset dir="${src.dir}" defaultexcludes="yes">
+				<exclude name="**/*.class" />
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+		<!-- replace resources Begin -->
+		<replace file="${classes.dir}/logback.xml" token="logger name=&quot;${base_package}&quot; level=&quot;INFO\&quot;" value="logger name=&quot;${base_package}&quot; level=&quot;WARN&quot;" />
+		<replace file="${classes.dir}/logback.xml" token="logger name=&quot;${base_package}&quot; level=&quot;info\&quot;" value="logger name=&quot;${base_package}&quot; level=&quot;WARN&quot;" />
+		<replace file="${classes.dir}/logback.xml" token="logger name=&quot;${base_package}&quot; level=&quot;debug\&quot;" value="logger name=&quot;${base_package}&quot; level=&quot;WARN&quot;" />
+		<replace file="${classes.dir}/logback.xml" token="logger name=&quot;${base_package}&quot; level=&quot;DEBUG\&quot;" value="logger name=&quot;${base_package}&quot; level=&quot;WARN&quot;" />
+		<rename src="${project.dir}/static/js/jquery/jquery.js" dest="${project.dir}/static/js/jquery/jquery.dep.js" />
+		<rename src="${project.dir}/static/js/jquery/jquery.min.js.rename" dest="${project.dir}/static/js/jquery/jquery.js" />
+		<!-- replace resources End -->
+	</target>
+
+	<!-- =================================
+          target: compile
+          ================================= -->
+	<target name="compile" depends="init">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${classes.dir}" source="${source}" target="${target}" includeantruntime="on">
+			<src path="src" />
+			<compilerarg line="-encoding UTF-8" />
+			<compilerarg line="-Xlint:deprecation" />
+			<classpath refid="classpath" />
+		</javac>
+		<jar destfile="${classes.jar.patch}" basedir="${classes.dir}">
+			<include name="**/cowboy/**/*" />
+		</jar>
+		<delete dir="${classes.dir}/cn" />
+		<echo message="Move common libraries!" />
+		<move todir="${classes.lib.dir.bak}" includeemptydirs="false">
+			<fileset dir="${classes.lib.dir}">
+				<include name="junit*.jar" />
+				<include name="svn*.jar" />
+				<include name="struts2-junit-plugin*.jar" />
+				<include name="servlet*.jar" />
+				<include name="org.springframework.test*.RELEASE.jar" />
+			</fileset>
+		</move>
+		<echo message="Compilation complete!" />
+	</target>
+
+
+	<!-- =================================
+          target: svn version
+         ================================= -->
+	<target name="version" depends="compile">
+		<typedef resource="com/googlecode/svntask/svntask.xml">
+			<classpath>
+				<fileset dir="${ant.tools}">
+					<include name="svnkit-1.8.7.jar" />
+					<include name="svntask.jar" />
+					<include name="sqljet-1.1.10.jar" />
+					<include name="antlr-runtime-3.4.jar" />
+					<include name="sequence-library-1.0.3.jar" />
+				</fileset>
+			</classpath>
+		</typedef>
+		<svn>
+			<info path="${basedir}" revisionProperty="revisionVersion" />
+		</svn>
+		<property name="version" value="${revisionVersion}" />
+		<echo message="svn version: ${version}" />
+		<manifest file="${project.dir}/META-INF/MANIFEST.MF">
+			<attribute name="Build-By" value="${user.name}" />
+			<attribute name="Main-Class" value="" />
+			<attribute name="Class-Path" value="${lib.dir}" />
+			<attribute name="Version" value="${version}" />
+			<attribute name="Build-Time" value="${timer.display-stamp}" />
+		</manifest>
+	</target>
+
+	<!-- =================================
+          target: test
+         ================================= -->
+	<target name="test" depends="compile">
+	</target>
+
+	<!-- =================================
+	          target: obfuscator
+	         ================================= -->
+	<target name="obfuscator" depends="test">
+		<java jar="${proguard-jar}" fork="true" failonerror="true" maxmemory="256m">
+			<jvmarg value="-Dmaximum.inlined.code.length=32" />
+			<arg value="-injars ${classes.jar.patch}" />
+			<arg value="-outjars ${obfuscator.classes.jar.patch}" />
+
+			<arg value="-overloadaggressively" />
+			<arg value="-repackageclasses ''" />
+			<arg value="-allowaccessmodification" />
+
+			<arg value="-keep public class * { public protected *; }" />
+			<arg value="-keepclassmembers enum * {
+					public static **[] values();
+					public static ** valueOf(java.lang.String);
+					}" />
+			<arg value="-keepclassmembers interface * {
+					public static *;
+					}" />
+
+			<arg value="-keepclassmembers class * {
+			    @javax.annotation.Resource *;
+				}" />
+			<arg value="-keepclassmembernames public class
+				cn.com.cowboy.commons.web.entity.BaseEntity{ private *;}" />
+			<arg value="-keepclassmembernames class * {
+					java.lang.Class
+					class$(java.lang.String);
+					java.lang.Class class$(java.lang.String,
+					boolean);
+					}" />
+
+			<arg value="-keepattributes
+				Exceptions,InnerClasses,Signature,Deprecated,
+				SourceFile,LineNumberTable,*Annotation*,EnclosingMethod" />
+			<arg value="-dontskipnonpubliclibraryclasses" />
+			<arg value="-dontskipnonpubliclibraryclassmembers" />
+			<arg value="-dontwarn javax.servlet.**" />
+			<arg value="-keepclassmembers class * implements java.io.Serializable
+					{
+					static final long serialVersionUID;
+					private static final java.io.ObjectStreamField[] serialPersistentFields;
+					private void writeObject(java.io.ObjectOutputStream);
+					private void readObject(java.io.ObjectInputStream);
+					java.lang.Object writeReplace();
+					java.lang.Object readResolve();
+					}" />
+			<arg value="-libraryjars ${jre.rt.jar}" />
+			<arg value="-libraryjars ${classes.lib.dir}" />
+		</java>
+		<unjar dest="${classes.dir}" src="${obfuscator.classes.jar.patch}" encoding="UTF-8">
+		</unjar>
+		<delete file="${classes.jar.patch}" />
+		<delete dir="${classes.dir}/META-INF" />
+		<delete file="${obfuscator.classes.jar.patch}" />
+	</target>
+
+	<!-- =================================
+          target: pack
+         ================================= -->
+	<target name="pack" depends="test,compile,version" description="make .zip file">
+		<zip destfile="${final.dist.patch}.zip" basedir="war">
+		</zip>
+		<war destfile="${final.dist.patch}.war" basedir="war/${ant.project.name}">
+		</war>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - -
+	 	target: clean
+		- - - - - - - - - - - - - - - - - -->
+	<target name="clean" description="Delete all generated files">
+		<echo message="clean" />
+		<delete dir="${dist.dir}" />
+		<delete dir="war" />
+		<delete dir="${classes.lib.dir.bak}" />
+	</target>
+	<!-- =================================
+          target: javadoc
+         ================================= -->
+	<target name="javadoc" depends="version">
+		<property name="javadoc.dir" location="${dist.dir}/javadoc" />
+		<mkdir dir="${javadoc.dir}" />
+		<javadoc charset="utf-8" destdir="${javadoc.dir}" packagenames="*" author="true" version="true" Windowtitle="${ant.project.name} Javadoc">
+			<classpath refid="classpath" />
+			<fileset dir="${src.dir}">
+				<include name="**/*.java" />
+			</fileset>
+			<group title="${ant.project.name}" packages="cn.com.cowboy.*" />
+			<doctitle>
+				<![CDATA[<h1>${ant.smvc.name}</h1>]]></doctitle>
+		<bottom>
+			<![CDATA[<i>Copyright &#169; ${timer.YEAR} cowboy. All Rights Reserved. Build version: ${version}</i>]]></bottom>
+</javadoc>
+</target>
+</project>
