@@ -9,7 +9,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import cn.com.cowboy.project.entity.Users;
 
-public class PasswordUtil
+public class PasswordUtils
 {
 
 	/**

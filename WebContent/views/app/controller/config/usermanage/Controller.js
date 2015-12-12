@@ -210,7 +210,7 @@ Ext.define('app.controller.config.usermanage.Controller', {
 	addUser : function() {
 		Ext.ComponentQuery.query("adduserform")[0].getForm().submit({ // 进行AJAX请求
 			waitMsg : "数据保存中...",
-			url : "user/add",
+			url : "../user/save",
 			success : function(form, response) { // 当success为true时执行的回调函数
 				var temp = response.result;
 				Ext.Msg.alert("系统提示", temp.message);

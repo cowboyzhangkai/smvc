@@ -10,7 +10,7 @@ import cn.com.cowboy.project.entity.AbstractEntity;
  * @date ：2015年12月7日 下午8:53:56
  * @version 1.0
  */
-public interface BaseBus<M extends AbstractEntity<ID>, ID extends Serializable>
+public abstract interface BaseBus<M extends AbstractEntity<ID>, ID extends Serializable>
 {
 	/**
 	 * 根据ID不为空查询一条记录
@@ -18,14 +18,14 @@ public interface BaseBus<M extends AbstractEntity<ID>, ID extends Serializable>
 	 * @param id
 	 * @return
 	 */
-	M findById(Object id);
+	public abstract M findById(Object id);
 
 	/**
 	 * 获取所有的
 	 * 
 	 * @return
 	 */
-	List<M> findAll();
+	public abstract List<M> findAll();
 
 	/**
 	 * 根据条件查询所有的
@@ -33,7 +33,7 @@ public interface BaseBus<M extends AbstractEntity<ID>, ID extends Serializable>
 	 * @param record
 	 * @return
 	 */
-	List<M> findListByExample(M m);
+	public abstract List<M> findListByExample(M m);
 
 	/**
 	 * 分页查询
@@ -43,14 +43,14 @@ public interface BaseBus<M extends AbstractEntity<ID>, ID extends Serializable>
 	 * @param pageSize
 	 * @return
 	 */
-	List<M> findPageByExample(M m, int pageNo, int pageSize);
+	public abstract List<M> findPageByExample(M m, int pageNo, int pageSize);
 
 	/**
 	 * 新增操作
 	 * 
 	 * @param u
 	 */
-	void save(M m);
+	public abstract void save(M m);
 
 	/**
 	 * 根据不为空的ID删除一条记录
@@ -58,7 +58,7 @@ public interface BaseBus<M extends AbstractEntity<ID>, ID extends Serializable>
 	 * @param id
 	 * @return
 	 */
-	int delete(Object id);
+	public abstract int delete(Object id);
 
 	/**
 	 * 只会更新不是null的数据
@@ -66,6 +66,6 @@ public interface BaseBus<M extends AbstractEntity<ID>, ID extends Serializable>
 	 * @param record
 	 * @return
 	 */
-	int updateById(Object id, M m);
+	public abstract int updateById(Object id, M m);
 
 }

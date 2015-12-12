@@ -44,7 +44,8 @@ Ext.define('app.view.config.usermanage.List', {
 						iconCls : 'search'
 					}],
 			initComponent : function() {// 用到继承，一般都会初始化这个函数
-				this.store = 'app.store.config.usermanage.Store', this.columns = [
+				this.store = 'app.store.config.usermanage.Store',
+				this.columns = [
 						{
 							header : "id",
 							dataIndex : "id",
@@ -52,7 +53,7 @@ Ext.define('app.view.config.usermanage.List', {
 							hidden : true
 						},{
 							header : "账号",
-							dataIndex : "name"
+							dataIndex : "name",
 						}, {
 							header : "姓名",
 							dataIndex : "cnName"
@@ -69,6 +70,5 @@ Ext.define('app.view.config.usermanage.List', {
 							emptyMsg : "当前没有数据显示"
 						});
 				this.callParent(arguments);
-
 			}
 		});

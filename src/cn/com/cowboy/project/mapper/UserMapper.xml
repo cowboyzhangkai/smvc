@@ -89,8 +89,7 @@
 		insert into users
 		(id,name,password,cn_name,gender,mobile,phone,department_id,create_time,is_active,salt)
 		values
-		(#{t.id},#{t.name},Md5(#{t.password}),#{t.cnName},#{t.gender},#{t.mobile},#{t.phone},#{t.department.id},#{t.createTime},#{t.isActive}
-		#(t.salt))
+		(#{m.id},#{m.name},#{m.password},#{m.cnName},#{m.gender},#{m.mobile},#{m.phone},#{m.department.id},#{m.createTime},#{m.isActive},#{m.salt})
 	</insert>
 	
 	<!-- 删除 -->
