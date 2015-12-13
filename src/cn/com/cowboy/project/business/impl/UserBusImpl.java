@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import cn.com.cowboy.project.business.UserBus;
 import cn.com.cowboy.project.dao.UserMapper;
 import cn.com.cowboy.project.entity.Users;
+import cn.com.cowboy.project.utils.PageSupport;
 import cn.com.cowboy.project.utils.PasswordUtils;
 
 @Service("userBus")
@@ -62,9 +63,13 @@ public class UserBusImpl implements UserBus
 	}
 
 	@Override
-	public List<Users> findPageByExample(Users m, int pageNo, int pageSize)
+	public PageSupport<Users> findPageByExample(Users m, int pageNo, int pageSize)
 	{
-		return userMapper.findPageByExample(m, pageNo, pageSize);
+		int startIndex = (pageNo - 1) * pageSize;
+		List<Users> rows = userMapper.findPageByExample(m, startIndex, pageSize);
+		Integer total = userMapper.getTotalCount(m);
+		PageSupport<Users> p = new PageSupport<Users>(pageNo, pageSize, total, rows);
+		return p;
 	}
 
 	@Override
@@ -88,7 +93,27 @@ public class UserBusImpl implements UserBus
 	@Override
 	public int updateById(Object id, Users m)
 	{
+		Users u = userMapper.findById(id);
+		String newPass = m.getPassword();
+		String salt = PasswordUtils.randomSalt();
+		u.setSalt(salt);
+		m.setPassword(PasswordUtils.encryptPassword(u, newPass));
+		m.setSalt(salt);
 		return userMapper.updateById(id, m);
 	}
 
+	@Override
+	public void batchDelete(String[] ids)
+	{
+		try
+		{
+			for (String id : ids)
+			{
+				userMapper.delete(id);
+			}
+		} catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
 }

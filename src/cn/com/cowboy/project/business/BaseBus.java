@@ -36,16 +36,6 @@ public abstract interface BaseBus<M extends AbstractEntity<ID>, ID extends Seria
 	public abstract List<M> findListByExample(M m);
 
 	/**
-	 * 分页查询
-	 * 
-	 * @param t
-	 * @param pageNo
-	 * @param pageSize
-	 * @return
-	 */
-	public abstract List<M> findPageByExample(M m, int pageNo, int pageSize);
-
-	/**
 	 * 新增操作
 	 * 
 	 * @param u

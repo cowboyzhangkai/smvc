@@ -1,6 +1,6 @@
 Ext.define('app.controller.config.usermanage.Controller', {
 	extend : 'Ext.app.Controller',
-	views : ['app.view.config.usermanage.List','app.view.config.usermanage.add.Add'],
+	views : ['app.view.config.usermanage.List','app.view.config.usermanage.add.Add','app.view.config.usermanage.edit.Edit'],
 	stores : ['app.store.config.usermanage.Store'],
 	models : ['app.model.config.usermanage.Model'],
 	init : function() {
@@ -130,30 +130,13 @@ Ext.define('app.controller.config.usermanage.Controller', {
 							}
 						}
 						Ext.Ajax.request({
-							url : "user/delete?" + br,
+							url : "../user/delete?" + br,
+							method:'post',
 							success : function(response) {
-								var temp = Ext.JSON
-										.decode(response.responseText);
-								Ext.Msg.alert("系统提示", temp.message);
-								if (temp.status) {
-									var pagesize = grid
-											.getDockedItems('toolbar[dock=bottom]')[0]
-											.getStore().pageSize;
-									grid.getStore().load({
-										params : {
-											start : (currentpage - 1)
-													* pagesize,
-											limit : pagesize,
-											// page : (currentpage - 1) *
-											// pagesize/pagesize + 1
-											page : currentpage
-											// 要显示的页码
-										}
-									});
-									// //删除页面数据
-									for (var i = 0; i < rsCount; i++) {
-										grid.getStore().remove(rsArray[i]);
-									}
+								var temp =Ext.decode(response.responseText);
+								Ext.Msg.alert("系统提示", temp.msg);
+								if (temp.success) {
+									grid.getStore().reload();
 								}
 							}
 						});
@@ -170,11 +153,11 @@ Ext.define('app.controller.config.usermanage.Controller', {
 		var thisgrid = Ext.ComponentQuery.query("usermanagelist")[0];
 		Ext.ComponentQuery.query("edituserform")[0].getForm().submit({ // 进行AJAX请求
 			waitMsg : "数据保存中...",
-			url : "user/update",
+			url : "../user/update",
 			success : function(form, response) { // 当success为true时执行的回调函数
 				var temp = response.result;
-				Ext.Msg.alert("系统提示", temp.message);
-				if (temp.status) {
+				Ext.Msg.alert("系统提示", temp.msg);
+				if (temp.success) {
 					var win = Ext.ComponentQuery.query("edituserwindow")[0];
 					win.close();
 					thisgrid.getStore().reload();
@@ -183,16 +166,16 @@ Ext.define('app.controller.config.usermanage.Controller', {
 					return false;
 				}
 			},
-			failure : function(form, response) { // 当success为true时执行的回调函数
+			failure : function(form, response) { // 当success为false时执行的回调函数
 				var temp = false;
 				if (response.result) {
 					temp = response.result;
 				} else {
 					temp = {
-						'message' : '请确保填写所有必填信息'
+						'msg' : '请确保填写所有必填信息'
 					};
 				}
-				Ext.Msg.alert("系统提示", temp.message);
+				Ext.Msg.alert("系统提示", temp.msg);
 				return false;
 			}
 		});
@@ -213,45 +196,18 @@ Ext.define('app.controller.config.usermanage.Controller', {
 			url : "../user/save",
 			success : function(form, response) { // 当success为true时执行的回调函数
 				var temp = response.result;
-				Ext.Msg.alert("系统提示", temp.message);
+				Ext.Msg.alert("系统提示", temp.msg);
 				var thisgrid = Ext.ComponentQuery.query("usermanagelist")[0];
-				if (temp.status) {
+				if (temp.success) {
 					var win = Ext.ComponentQuery.query("adduserwindow")[0];
 					win.close();
-					var count = thisgrid.getStore().count();
-					var pageSize = thisgrid
-							.getDockedItems('toolbar[dock=bottom]')[0]
-							.getStore().pageSize;
-					var currentpage = thisgrid
-							.getDockedItems('toolbar[dock=bottom]')[0]
-							.getStore().currentPage;
-					var pageCount = thisgrid
-							.getDockedItems('toolbar[dock=bottom]')[0]
-							.getPageData().pageCount;
-					if (count == pageSize) {
-						if (currentpage == pageCount) {// 当前页是最后一页
-							pageCount = pageCount + 1;
-							thisgrid.getDockedItems('toolbar[dock=bottom]')[0]
-									.getStore().currentPage = pageCount;
-						} else {// 当前页不是最后一页
-							thisgrid.getDockedItems('toolbar[dock=bottom]')[0]
-									.moveLast();
-							thisgrid.getDockedItems('toolbar[dock=bottom]')[0]
-									.getStore().currentPage = pageCount;
-						}
-					}
-					thisgrid.getStore().load({
-								params : {
-									start : (pageCount - 1) * pageSize,
-									limit : pageSize
-								}
-							});
+					thisgrid.getStore().reload();
 					return true;
 				} else {
 					return false;
 				}
 			},
-			failure : function(form, response) { // 当success为true时执行的回调函数
+			failure : function(form, response) { // 当success为false时执行的回调函数
 				var temp = false;
 				if (response.result) {
 					temp = response.result;
@@ -331,7 +287,7 @@ Ext.define('app.controller.config.usermanage.Controller', {
 					value : record.get('name')
 				}, {
 					id : 'cnName',
-					value : record.get('username')
+					value : record.get('cnName')
 				}]);
 		// Ext.ComponentQuery.query("edituserform>combo")[0].setValue(record
 		// .get('departmentId'));

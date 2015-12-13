@@ -40,11 +40,6 @@ public abstract class BaseAbstractBus<M extends AbstractEntity<ID>, ID extends S
 		return baseMapper.findListByExample(m);
 	}
 
-	@Override
-	public List<M> findPageByExample(M m, int pageNo, int pageSize)
-	{
-		return baseMapper.findPageByExample(m, pageNo, pageSize);
-	}
 
 	@Override
 	public void save(M m)

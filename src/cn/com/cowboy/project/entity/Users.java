@@ -19,8 +19,19 @@ import cn.com.cowboy.project.enums.Gender;
  */
 public class Users extends BaseEntity<String>
 {
+	private static final long serialVersionUID = 956416072643863173L;
+	private String id;
 
-	private static final long serialVersionUID = -2090995922354697224L;
+	public String getId()
+	{
+		return id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+
 	/**
 	 * 用户登录名
 	 */
@@ -328,9 +339,4 @@ public class Users extends BaseEntity<String>
 				+ ", isActive=" + isActive + ", position=" + position + "]";
 	}
 
-	@Override
-	public boolean isNew()
-	{
-		return (null == getId());
-	}
 }

@@ -29,9 +29,6 @@
 				/logout=logout
 
 
-				/user/create*=perms["user:create"]
-				/user/update*=perms["user:update"]
-				/user/remove*=perms["user:delete"]
 
 				/**=authc
 			</value>

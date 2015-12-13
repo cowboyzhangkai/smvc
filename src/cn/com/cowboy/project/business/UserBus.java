@@ -1,6 +1,7 @@
 package cn.com.cowboy.project.business;
 
 import cn.com.cowboy.project.entity.Users;
+import cn.com.cowboy.project.utils.PageSupport;
 
 /**
  * 
@@ -24,4 +25,19 @@ public interface UserBus extends BaseBus<Users, String>
 	 * @return
 	 */
 	public Users findByName(String name);
+
+	/**
+	 * 
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public PageSupport<Users> findPageByExample(Users m, int pageNo, int pageSize);
+
+	/**
+	 * 批量删除
+	 * 
+	 * @param ids
+	 */
+	public void batchDelete(String[] ids);
 }
