@@ -6,7 +6,7 @@ import cn.com.cowboy.project.entity.Users;
 
 public interface UserMapper extends BaseMapper<Users, String>
 {
-	Users findByName(String loginName);
+	Users findByName(@Param("loginName") String loginName);
 
 	void changePwd(@Param("id") String id, @Param("newPwd") String newPwd);
 }
