@@ -4,9 +4,10 @@ Ext
 				{
 					extend : 'Ext.app.Controller',
 					views : [ 'app.view.leftmenu.LeftMenu',
-							'app.view.leftmenu.UserManageMenu' ],
-					stores : [ 'app.store.leftmenu.UserManageMenuStore' ],
-					models : [ 'app.model.leftmenu.UserManageMenuModel' ],
+							'app.view.leftmenu.UserManageMenu',
+							'app.view.leftmenu.TransBillManageMenu'],
+					stores : [ 'app.store.leftmenu.UserManageMenuStore',  'app.store.leftmenu.TransBillManageMenuStore'],
+					models : [ 'app.model.leftmenu.UserManageMenuModel','app.model.leftmenu.TransBillManageMenuModel' ],
 					init : function() {
 						this.control({
 							'usermanagemenu' : {
@@ -24,16 +25,6 @@ Ext
 						var usermanagemenu = Ext.getCmp("usermanagepanel");
 						//checkPrivilege(usermanagemenu, 5);
 						Ext.getBody().unmask();
-
-//						if (!Ext.ComponentQuery.query("tipswindow")[0]) {
-//							Ext.create("app.view.index.tipswindow.TipsWindow",
-//									{
-//										x : document.body.clientWidth,
-//										y : document.body.clientHeight
-//									}).show();
-//						} else {
-//							Ext.ComponentQuery.query("tipswindow")[0].show();
-//						}
 
 					},
 					expand : function(p) {
@@ -59,7 +50,6 @@ Ext
 												}, self);
 							} else {
 								newTab("usermanagelist", "usermanagelist","系统管理>人员管理", "人员管理");
-								//this.addTab("usermanagelist", "usermanagelist","系统管理>人员管理", "人员管理");
 							}
 						} else if (rowIndex == 1) {
 							var self = this;
@@ -75,11 +65,8 @@ Ext
 //							} else {
 //								newTab("departmanagelist", "departmanagelist",
 //										"系统管理>部门管理", "部门管理");
-								this.addTab("departmanagelist", "departmanagelist","系统管理>部门管理", "部门管理");
+//								this.addTab("departmanagelist", "departmanagelist","系统管理>部门管理", "部门管理");
 //							}
-							// this.addTab("usermanagelist", "usermanagelist",
-							// record,
-							// record.data.userManageMenuName);
 
 						} else if (rowIndex == 2) {
 							var self = this;

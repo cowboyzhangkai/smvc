@@ -19,7 +19,16 @@ Ext.define('app.view.leftmenu.LeftMenu', {
 		items : [ {
 			xtype : 'usermanagemenu'
 		} ]
-	}],
+	}, {
+		title : '业务管理',
+		iconCls : 'transbillmanage',
+		autoScroll : true,
+		xtype : "panel",
+		id : 'transbillmanagepanel',
+		items : [ {
+			xtype : 'transbillmanagemenu'
+		} ]
+	} ],
 	initComponent : function() {
 		this.callParent(arguments);
 	}
