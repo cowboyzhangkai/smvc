@@ -35,13 +35,6 @@ public abstract class BaseAbstractBus<M extends AbstractEntity<ID>, ID extends S
 	}
 
 	@Override
-	public List<M> findListByExample(M m)
-	{
-		return baseMapper.findListByExample(m);
-	}
-
-
-	@Override
 	public void save(M m)
 	{
 		baseMapper.save(m);

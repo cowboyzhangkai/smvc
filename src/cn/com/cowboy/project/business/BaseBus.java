@@ -27,13 +27,6 @@ public abstract interface BaseBus<M extends AbstractEntity<ID>, ID extends Seria
 	 */
 	public abstract List<M> findAll();
 
-	/**
-	 * 根据条件查询所有的
-	 * 
-	 * @param record
-	 * @return
-	 */
-	public abstract List<M> findListByExample(M m);
 
 	/**
 	 * 新增操作

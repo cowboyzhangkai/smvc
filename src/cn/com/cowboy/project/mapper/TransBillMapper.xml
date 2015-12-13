@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.cowboy.project.dao.TransBillMapper">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+
+	<resultMap id="TransBillMap" type="TransBill">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+		<result column="trans_time" property="transTime" jdbcType="VARCHAR" />
+		<result column="load_goods_point" property="loadGoodsPoint"
+			jdbcType="VARCHAR" />
+		<result column="dest" property="dest" jdbcType="VARCHAR" />
+		<result column="company" property="company" jdbcType="VARCHAR" />
+		<result column="contractor" property="contractor" jdbcType="VARCHAR" />
+		<result column="contract_phone" property="contractPhone"
+			jdbcType="VARCHAR" />
+		<result column="fax" property="fax" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="fee" property="fee" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				1=1
+				<if test="m.id != null"> and id = #{m.id}</if>
+				<!-- 模糊查询 -->
+				<if test="m.billNo != null">and billNo like CONCAT("%",#{m.billNo},"%")</if>
+			</trim>
+		</where>
+	</sql>
+
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="TransBillMap">
+		select
+		*
+		from trans_bill
+	</select>
+
+	<!-- 根据id条件查询 -->
+	<select id="findById" resultMap="TransBillMap">
+		select
+		*
+		from trans_bill
+		where id=#{id}
+	</select>
+
+
+
+	<!-- 根据条件基本查询 -->
+	<select id="findPageByExample" resultMap="UserMap">
+		select t.* from trans_bill t
+		<include refid="Base_Where_Clause" />
+		order by t.id
+		limit #{pageNo,jdbcType=INTEGER} ,#{pageSize,jdbcType=INTEGER}
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+			select count( t.id) from trans_bill t
+		<include refid="Base_Where_Clause" />
+		</if>
+	</select>
+
+	<!-- 添加 -->
+	<insert id="save" parameterType="TransBill" keyProperty="id">
+		insert into
+		trans_bill
+		(id,bill_no,trans_time,load_goods_point,dest,company,contractor,contract_phone,fax,address,fee)
+		values
+		(#{m.id},#{m.billNo},#{m.transTime},#{m.loadGoodsPoint},#{m.dest},#{m.company},#{m.contractor},#{m.contractPhone},#{m.fax},#{m.address},#{m.fee})
+	</insert>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from trans_bill where
+		id=#{id}
+	</delete>
+
+	<!-- 根据ID修改 -->
+	<update id="updateById">
+		update trans_bill
+		<set>
+			<if test="m.billNo != null">bill_no = #{m.billNo},</if>
+			trans_time = #{m.transTime},
+			load_goods_point = #{m.loadGoodsPoint},
+			dest = #{m.dest},
+			company=#{m.company},
+			contractor=#{m.contractor},
+			contract_phone=#{m.contractPhone},
+			fax=#{m.fax},
+			address=#{m.address},
+			fee=#{m.fee}
+		</set>
+		where id = #{id}
+	</update>
+
+</mapper>

@@ -12,5 +12,6 @@
 	<typeAliases>
 		<typeAlias alias="Users" type="cn.com.cowboy.project.entity.Users" />
 		<typeAlias alias="Department" type="cn.com.cowboy.project.entity.Department" />
+		<typeAlias alias="TransBill" type="cn.com.cowboy.project.entity.TransBill" />
 	</typeAliases>
 </configuration>

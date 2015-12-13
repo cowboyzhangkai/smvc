@@ -57,12 +57,6 @@ public class UserBusImpl implements UserBus
 	}
 
 	@Override
-	public List<Users> findListByExample(Users m)
-	{
-		return userMapper.findListByExample(m);
-	}
-
-	@Override
 	public PageSupport<Users> findPageByExample(Users m, int pageNo, int pageSize)
 	{
 		int startIndex = (pageNo - 1) * pageSize;
