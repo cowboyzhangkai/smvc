@@ -17,10 +17,12 @@ Ext.define('app.view.biz.transbillmanage.add.Add', {
 		minChars : 0,
 		style : 'margin:20px 5px 0px;'
 	}, {
-		xtype : 'textfield',
+		xtype : 'datefield',
 		fieldLabel : "托运日期",
 		name : 'transTime',
-		allowBlank : true,
+		format: 'Y-m-d h:i:s', 
+		selectOnFocus:true, 
+        editable:false, 
 		width : 100,
 		minChars : 0,
 		style : 'margin:20px 5px 0px;'

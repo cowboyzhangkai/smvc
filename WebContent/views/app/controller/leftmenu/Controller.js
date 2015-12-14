@@ -13,6 +13,9 @@ Ext
 							'usermanagemenu' : {
 								itemclick : this.configitemclick
 							},
+							'transbillmanagemenu' : {
+								itemclick : this.transbillitemclick
+							},
 							'leftmenu > panel' : {
 								expand : this.expand
 							},
@@ -34,10 +37,27 @@ Ext
 									.reload();
 						}
 					},
-
+					transbillitemclick: function(view, record, item, rowIndex, e) {
+						 if (rowIndex == 0) {
+								var self = this;
+								if (!this.application.controllers
+										.get("app.controller.biz.transbillmanage.Controller")) {
+									Ext
+											.require(
+													"app.controller.biz.transbillmanage.Controller",
+													function() {
+														application
+																.getController('app.controller.biz.transbillmanage.Controller');
+													}, self);
+								} else {
+									newTab("transbillmanagelist", "transbillmanagelist",
+											"业务管理>运单管理", "运单管理");
+								}
+						 }
+					},
 					// 系统设置菜单单击事件
 					configitemclick : function(view, record, item, rowIndex, e) {
-						if (rowIndex == 0) {
+						 if  (rowIndex == 0) {
 							var self = this;
 							if (!this.application.controllers
 									.get("app.controller.config.usermanage.Controller")) {

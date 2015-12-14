@@ -199,7 +199,7 @@ Ext.define('app.controller.biz.transbillmanage.Controller', {
 				Ext.Msg.alert("系统提示", temp.msg);
 				var thisgrid = Ext.ComponentQuery.query("transbillmanagelist")[0];
 				if (temp.success) {
-					var win = Ext.ComponentQuery.query("addtransbillform")[0];
+					var win = Ext.ComponentQuery.query("addtransbillwindow")[0];
 					win.close();
 					thisgrid.getStore().reload();
 					return true;
@@ -226,7 +226,7 @@ Ext.define('app.controller.biz.transbillmanage.Controller', {
 	 * 关闭添加信息窗口
 	 */
 	closeAddWindow : function() {
-		var win = Ext.ComponentQuery.query("addtransbillform")[0];
+		var win = Ext.ComponentQuery.query("addtransbillwindow")[0];
 		win.close();
 	},
 	/**
@@ -246,10 +246,10 @@ Ext.define('app.controller.biz.transbillmanage.Controller', {
 		if (Ext.ComponentQuery.query("addtransbillform")[0]) {
 			Ext.ComponentQuery.query("addtransbillform")[0].getForm().reset();
 		}
-		if (!Ext.ComponentQuery.query("addtransbillform")[0]) {
+		if (!Ext.ComponentQuery.query("addtransbillwindow")[0]) {
 			Ext.create('app.view.biz.transbillmanage.add.Window', {}).show();
 		} else {
-			Ext.ComponentQuery.query("addtransbillform")[0].show();
+			Ext.ComponentQuery.query("addtransbillwindow")[0].show();
 		}
 	},
 	/**

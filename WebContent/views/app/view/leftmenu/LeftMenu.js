@@ -11,15 +11,6 @@ Ext.define('app.view.leftmenu.LeftMenu', {
 	iconCls : 'menu',
 	width : 200,
 	items : [ {
-		title : '系统管理',
-		iconCls : 'usermanage',
-		autoScroll : true,
-		xtype : "panel",
-		id : 'usermanagepanel',
-		items : [ {
-			xtype : 'usermanagemenu'
-		} ]
-	}, {
 		title : '业务管理',
 		iconCls : 'transbillmanage',
 		autoScroll : true,
@@ -27,6 +18,15 @@ Ext.define('app.view.leftmenu.LeftMenu', {
 		id : 'transbillmanagepanel',
 		items : [ {
 			xtype : 'transbillmanagemenu'
+		} ]
+	}, {
+		title : '系统管理',
+		iconCls : 'usermanage',
+		autoScroll : true,
+		xtype : "panel",
+		id : 'usermanagepanel',
+		items : [ {
+			xtype : 'usermanagemenu'
 		} ]
 	} ],
 	initComponent : function() {

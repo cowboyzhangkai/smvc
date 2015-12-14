@@ -50,14 +50,21 @@ Ext.define('app.view.config.usermanage.List', {
 			hidden : true,
 			align : "center"
 		}, {
+			header : "序号",
+			xtype : "rownumberer",
+			width:50
+		}, {
 			header : "账号",
 			dataIndex : "name",
+			width:330
 		}, {
 			header : "姓名",
-			dataIndex : "cnName"
+			dataIndex : "cnName",
+			width:330
 		}, {
 			header : "所属部门",
-			dataIndex : "department.name"
+			dataIndex : "department.name",
+			width:330
 		} ],
 		// paging bar on the bottom
 		this.bbar = Ext.create('Ext.PagingToolbar', {

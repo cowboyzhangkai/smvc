@@ -1,7 +1,5 @@
 package cn.com.cowboy.project.entity;
 
-import java.util.Date;
-
 /**
  * @author cowboy
  * @date ：2015年12月13日 下午8:44:09
@@ -19,7 +17,7 @@ public class TransBill extends BaseEntity<String>
 	/**
 	 * 托运日期
 	 */
-	private Date transTime;
+	private String transTime;
 
 	/**
 	 * 到厂装货时间
@@ -81,12 +79,12 @@ public class TransBill extends BaseEntity<String>
 		this.billNo = billNo;
 	}
 
-	public Date getTransTime()
+	public String getTransTime()
 	{
 		return transTime;
 	}
 
-	public void setTransTime(Date transTime)
+	public void setTransTime(String transTime)
 	{
 		this.transTime = transTime;
 	}
