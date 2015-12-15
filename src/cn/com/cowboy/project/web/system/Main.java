@@ -23,7 +23,7 @@ import cn.com.cowboy.project.utils.ControllerHelper;
 @Controller
 @Scope("prototype")
 public class Main {
-    @RequestMapping(value = "/sys/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String excute() {
         return ControllerHelper.redirectToUrl("/views/main.html");
     }

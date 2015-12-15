@@ -6,5 +6,5 @@
 	response.setHeader("Cache-Control", "Private");
 	response.setDateHeader("Expires",
 			System.currentTimeMillis() + 864000000L);
-	response.sendRedirect(path + "/sys/main");
+	response.sendRedirect(path + "/admin");
 %>

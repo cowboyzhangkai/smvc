@@ -23,14 +23,13 @@
 				/=anon
 				/sys/loginFaild*=anon
 				/index.jsp*=anon
+				/index.html*=anon
 
 				/static/**=anon
 				/login*=authc
 				/logout=logout
 
-
-
-				/**=authc
+				/**=authc,user
 			</value>
 		</property>
 	</bean>

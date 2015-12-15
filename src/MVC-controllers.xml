@@ -44,6 +44,8 @@
 	<mvc:resources mapping="/login.html" location="/login.html" />
 	<mvc:resources mapping="/index.jsp" location="/index.jsp" />
 
+	<mvc:resources mapping="/*" location="/welcome.html" />
+	<mvc:resources mapping="/**" location="/welcome.html" />
 	<!-- 不确定还需启用标注事务 -->
 	<tx:annotation-driven />
 
