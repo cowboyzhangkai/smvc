@@ -44,6 +44,7 @@
 	<mvc:resources mapping="/login.html" location="/login.html" />
 	<mvc:resources mapping="/index.jsp" location="/index.jsp" />
 
+	<!-- 此处主要是为了主页通过域名直接访问，location值随便填写什么，但不能为空 -->
 	<mvc:resources mapping="/*" location="/welcome.html" />
 	<mvc:resources mapping="/**" location="/welcome.html" />
 	<!-- 不确定还需启用标注事务 -->
