@@ -65,7 +65,7 @@ Ext.define('app.view.biz.transbillmanage.List', {
 			header : "托运人/公司/工厂",
 			dataIndex : "company"
 		}, {
-			header : "联系",
+			header : "联系人",
 			dataIndex : "contractor"
 		}, {
 			header : "联系电话",

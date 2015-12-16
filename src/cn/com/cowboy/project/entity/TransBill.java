@@ -20,44 +20,49 @@ public class TransBill extends BaseEntity<String>
 	private String transTime;
 
 	/**
-	 * 到厂装货时间
+	 * 起始地点
 	 */
-	private String loadGoodsPoint;
+	private String fromStation;
 
 	/**
-	 * 运往目的地
+	 * 到站
 	 */
-	private String dest;
+	private String toStation;
 
 	/**
-	 * 托运人/公司/工厂
+	 * 托运单位/个人
 	 */
-	private String company;
+	private String transCompany;
 
 	/**
-	 * 联系人
+	 * 托运单位联系电话
 	 */
-	private String contractor;
+	private String transPhone;
 
 	/**
-	 * 联系电话
+	 * 收货单位/个人
 	 */
-	private String contractPhone;
+	private String destCompany;
 
 	/**
-	 * 传真
+	 * 收获单位联系电话
 	 */
-	private String fax;
+	private String destTel;
 
 	/**
-	 * 托运公司地址
+	 * 收货单位联系手机
 	 */
-	private String address;
+	private String destPhone;
 
 	/**
-	 * 运费
+	 * 收货单位联系地址
 	 */
-	private Double fee;
+	private String destAddress;
+
+	/**
+	 * 交付方式
+	 */
+	private String payType;
 
 	public String getId()
 	{
@@ -89,84 +94,94 @@ public class TransBill extends BaseEntity<String>
 		this.transTime = transTime;
 	}
 
-	public String getLoadGoodsPoint()
+	public String getFromStation()
 	{
-		return loadGoodsPoint;
+		return fromStation;
 	}
 
-	public void setLoadGoodsPoint(String loadGoodsPoint)
+	public void setFromStation(String fromStation)
 	{
-		this.loadGoodsPoint = loadGoodsPoint;
+		this.fromStation = fromStation;
 	}
 
-	public String getDest()
+	public String getToStation()
 	{
-		return dest;
+		return toStation;
 	}
 
-	public void setDest(String dest)
+	public void setToStation(String toStation)
 	{
-		this.dest = dest;
+		this.toStation = toStation;
 	}
 
-	public String getCompany()
+	public String getTransCompany()
 	{
-		return company;
+		return transCompany;
 	}
 
-	public void setCompany(String company)
+	public void setTransCompany(String transCompany)
 	{
-		this.company = company;
+		this.transCompany = transCompany;
 	}
 
-	public String getContractor()
+	public String getTransPhone()
 	{
-		return contractor;
+		return transPhone;
 	}
 
-	public void setContractor(String contractor)
+	public void setTransPhone(String transPhone)
 	{
-		this.contractor = contractor;
+		this.transPhone = transPhone;
 	}
 
-	public String getContractPhone()
+	public String getDestCompany()
 	{
-		return contractPhone;
+		return destCompany;
 	}
 
-	public void setContractPhone(String contractPhone)
+	public void setDestCompany(String destCompany)
 	{
-		this.contractPhone = contractPhone;
+		this.destCompany = destCompany;
 	}
 
-	public String getFax()
+	public String getDestTel()
 	{
-		return fax;
+		return destTel;
 	}
 
-	public void setFax(String fax)
+	public void setDestTel(String destTel)
 	{
-		this.fax = fax;
+		this.destTel = destTel;
 	}
 
-	public String getAddress()
+	public String getDestPhone()
 	{
-		return address;
+		return destPhone;
 	}
 
-	public void setAddress(String address)
+	public void setDestPhone(String destPhone)
 	{
-		this.address = address;
+		this.destPhone = destPhone;
 	}
 
-	public Double getFee()
+	public String getDestAddress()
 	{
-		return fee;
+		return destAddress;
 	}
 
-	public void setFee(Double fee)
+	public void setDestAddress(String destAddress)
 	{
-		this.fee = fee;
+		this.destAddress = destAddress;
+	}
+
+	public String getPayType()
+	{
+		return payType;
+	}
+
+	public void setPayType(String payType)
+	{
+		this.payType = payType;
 	}
 
 }

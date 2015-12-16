@@ -7,16 +7,16 @@
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="bill_no" property="billNo" jdbcType="VARCHAR" />
 		<result column="trans_time" property="transTime" jdbcType="VARCHAR" />
-		<result column="load_goods_point" property="loadGoodsPoint"
+		<result column="from_station" property="fromStation" jdbcType="VARCHAR" />
+		<result column="to_station" property="toStation" jdbcType="VARCHAR" />
+		<result column="trans_company" property="transCompany"
 			jdbcType="VARCHAR" />
-		<result column="dest" property="dest" jdbcType="VARCHAR" />
-		<result column="company" property="company" jdbcType="VARCHAR" />
-		<result column="contractor" property="contractor" jdbcType="VARCHAR" />
-		<result column="contract_phone" property="contractPhone"
-			jdbcType="VARCHAR" />
-		<result column="fax" property="fax" jdbcType="VARCHAR" />
-		<result column="address" property="address" jdbcType="VARCHAR" />
-		<result column="fee" property="fee" jdbcType="VARCHAR" />
+		<result column="trans_phone" property="transPhone" jdbcType="VARCHAR" />
+		<result column="dest_company" property="destCompany" jdbcType="VARCHAR" />
+		<result column="dest_tel" property="destTel" jdbcType="VARCHAR" />
+		<result column="dest_phone" property="destPhone" jdbcType="VARCHAR" />
+		<result column="dest_address" property="destAddress" jdbcType="VARCHAR" />
+		<result column="pay_type" property="payType" jdbcType="VARCHAR" />
 	</resultMap>
 
 
@@ -26,7 +26,7 @@
 				1=1
 				<if test="m.id != null"> and id = #{m.id}</if>
 				<!-- 模糊查询 -->
-				<if test="m.billNo != null">and billNo like CONCAT("%",#{m.billNo},"%")</if>
+				<if test="m.billNo != null">and bill_No like CONCAT("%",#{m.billNo},"%")</if>
 			</trim>
 		</where>
 	</sql>
@@ -43,7 +43,8 @@
 		select
 		*
 		from trans_bill
-		where id=#{id}
+		where
+		id=#{id}
 	</select>
 
 
@@ -53,21 +54,23 @@
 		select t.* from trans_bill t
 		<include refid="Base_Where_Clause" />
 		order by t.id
-		limit #{pageNo,jdbcType=INTEGER} ,#{pageSize,jdbcType=INTEGER}
+		limit #{pageNo,jdbcType=INTEGER}
+		,#{pageSize,jdbcType=INTEGER}
 	</select>
 
 	<select id="getTotalCount" resultType="int">
-			select count( t.id) from trans_bill t
+		select count( t.id) from trans_bill t
 		<include refid="Base_Where_Clause" />
 	</select>
 
 	<!-- 添加 -->
 	<insert id="save" parameterType="TransBill" keyProperty="id">
-		insert into
+		insert
+		into
 		trans_bill
-		(id,bill_no,trans_time,load_goods_point,dest,company,contractor,contract_phone,fax,address,fee)
+		(id,bill_no,trans_time,from_station,to_station,trans_company,trans_phone,dest_company,dest_tel,dest_phone,dest_address,pay_type)
 		values
-		(#{m.id},#{m.billNo},#{m.transTime},#{m.loadGoodsPoint},#{m.dest},#{m.company},#{m.contractor},#{m.contractPhone},#{m.fax},#{m.address},#{m.fee})
+		(#{m.id},#{m.billNo},#{m.transTime},#{m.toStation},#{m.transCompany},#{m.transPhone},#{m.destCompany},#{m.destTel},#{m.destPhone},#{m.destAddress},#{m.payType})
 	</insert>
 
 	<!-- 删除 -->
@@ -82,14 +85,15 @@
 		<set>
 			<if test="m.billNo != null">bill_no = #{m.billNo},</if>
 			trans_time = #{m.transTime},
-			load_goods_point = #{m.loadGoodsPoint},
-			dest = #{m.dest},
-			company=#{m.company},
-			contractor=#{m.contractor},
-			contract_phone=#{m.contractPhone},
-			fax=#{m.fax},
-			address=#{m.address},
-			fee=#{m.fee}
+			from_station = #{m.fromStation},
+			to_station = #{m.toSation},
+			trans_company=#{m.transCompany},
+			trans_phone=#{m.transPhone},
+			dest_company=#{m.destCompany},
+			dest_tel=#{m.destTel},
+			dest_phone=#{m.destPhone},
+			dest_address=#{m.destAddress},
+			pay_type=#{m.payType},
 		</set>
 		where id = #{id}
 	</update>

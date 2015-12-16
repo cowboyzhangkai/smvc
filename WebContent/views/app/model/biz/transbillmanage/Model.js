@@ -10,28 +10,31 @@ Ext.define('app.model.biz.transbillmanage.Model', {
 		name : 'transTime',
 		type : "string"
 	}, {
-		name : 'loadGoodsPoint',
+		name : 'fromStation',
 		type : 'string'
 	}, {
-		name : 'dest',
+		name : 'toStation',
 		type : 'string'
 	}, {
-		name : 'company',
+		name : 'transCompany',
 		type : 'string'
 	}, {
-		name : 'contractor',
+		name : 'transPhone',
 		type : 'string'
 	}, {
-		name : 'contractPhone',
+		name : 'destCompany',
 		type : 'string'
 	}, {
-		name : 'fax',
+		name : 'destTel',
 		type : 'string'
 	}, {
-		name : 'address',
+		name : 'destPhone',
 		type : 'string'
 	}, {
-		name : 'fee',
+		name : 'destAddress',
+		type : 'string'
+	}, {
+		name : 'payType',
 		type : 'string'
 	} ]
 
