@@ -45,7 +45,7 @@ public class TransBill extends BaseEntity<String>
 	private String destCompany;
 
 	/**
-	 * 收获单位联系电话
+	 * 收货单位联系电话
 	 */
 	private String destTel;
 

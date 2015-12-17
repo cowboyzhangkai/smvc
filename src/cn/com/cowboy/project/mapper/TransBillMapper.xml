@@ -70,7 +70,7 @@
 		trans_bill
 		(id,bill_no,trans_time,from_station,to_station,trans_company,trans_phone,dest_company,dest_tel,dest_phone,dest_address,pay_type)
 		values
-		(#{m.id},#{m.billNo},#{m.transTime},#{m.toStation},#{m.transCompany},#{m.transPhone},#{m.destCompany},#{m.destTel},#{m.destPhone},#{m.destAddress},#{m.payType})
+		(#{m.id},#{m.billNo},#{m.transTime},#{m.fromStation},#{m.toStation},#{m.transCompany},#{m.transPhone},#{m.destCompany},#{m.destTel},#{m.destPhone},#{m.destAddress},#{m.payType})
 	</insert>
 
 	<!-- 删除 -->

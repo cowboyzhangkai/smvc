@@ -213,10 +213,10 @@ Ext.define('app.controller.biz.transbillmanage.Controller', {
 					temp = response.result;
 				} else {
 					temp = {
-						'message' : '请确保填写所有必填信息'
+						'msg' : '请确保填写所有必填信息'
 					};
 				}
-				Ext.Msg.alert("系统提示", temp.message);
+				Ext.Msg.alert("系统提示", temp.msg);
 				return false;
 			}
 		});

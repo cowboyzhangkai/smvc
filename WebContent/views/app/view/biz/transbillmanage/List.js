@@ -7,11 +7,11 @@ Ext.define('app.view.biz.transbillmanage.List', {
 	enableColumnHide : false,// /隐藏列
 	sortableColumns : false,// /隐藏排序
 	border : false,
-	viewConfig : {
-		forceFit : true, // 注意不要用autoFill:true,那样设置的话当GridPanel的大小变化（比如你resize了它）时不会自动调整column的宽度
-		scrollOffset : 0
-	// 不加这个的话，会在grid的最右边有个空白，留作滚动条的位置
-	},
+//	viewConfig : {
+//		forceFit : true, // 注意不要用autoFill:true,那样设置的话当GridPanel的大小变化（比如你resize了它）时不会自动调整column的宽度
+//		scrollOffset : 0
+//	// 不加这个的话，会在grid的最右边有个空白，留作滚动条的位置
+//	},
 	columnLines : true,// 显示列的分割线
 	tbar : [ {
 		xtype : 'button',
@@ -52,28 +52,48 @@ Ext.define('app.view.biz.transbillmanage.List', {
 		}, {
 			header : "运单号",
 			dataIndex : "billNo",
+			flex : 4.5 //占比9/20
 		}, {
 			header : "托运日期",
-			dataIndex : "transTime"
+			dataIndex : "transTime",
+			flex : 4.5 //占比9/20
 		}, {
-			header : "到厂装货时间",
-			dataIndex : "loadGoodsPoint"
+			header : "起始地点",
+			dataIndex : "fromStation",
+			flex : 4.5 //占比9/20
 		}, {
 			header : "运往目的地",
-			dataIndex : "dest"
+			dataIndex : "toStation",
+			flex : 4.5 //占比9/20
 		}, {
-			header : "托运人/公司/工厂",
-			dataIndex : "company"
+			header : "托运单位/个人",
+			dataIndex : "transCompany",
+			flex : 4.5 //占比9/20
 		}, {
-			header : "联系人",
-			dataIndex : "contractor"
+			header : "托运单位联系电话",
+			dataIndex : "transPhone",
+			flex : 4.5 //占比9/20
 		}, {
-			header : "联系电话",
-			dataIndex : "contractPhone"
+			header : "收货单位/个人",
+			dataIndex : "destCompany",
+			flex : 4.5 //占比9/20
 		}, {
-			header : "托运公司地址",
-			dataIndex : "address"
-		} ],
+			header : "收货单位联系电话",
+			dataIndex : "destTel",
+			flex : 4.5 //占比9/20
+		}, {
+			header : "收货单位联系手机",
+			dataIndex : "destPhone",
+			flex : 4.5 //占比9/20
+		} , {
+			header : "收货单位联系地址",
+			dataIndex : "destAddress",
+			flex : 4.5 //占比9/20
+		}, {
+			header : "交付方式",
+			dataIndex : "payType",
+			flex : 4.5 //占比9/20
+		}  ],
 		// paging bar on the bottom
 		this.bbar = Ext.create('Ext.PagingToolbar', {
 			id : 'transbillManagerPagingToolbarId',

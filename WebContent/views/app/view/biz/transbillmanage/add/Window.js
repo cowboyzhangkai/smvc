@@ -6,7 +6,7 @@ Ext.define('app.view.biz.transbillmanage.add.Window', {
 	alias : 'widget.addtransbillwindow',
 	title : "添加运单信息",
 	width : 1000,
-	height : 600,
+	height : 400,
 	// renderTo:'maintainmanage',
 	autoScroll : true,
 	closeAction : "hide",// 使关闭模式为隐藏（hide）

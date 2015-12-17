@@ -12,29 +12,36 @@ Ext.define('app.view.biz.transbillmanage.add.Add', {
 	items : [ {
 		layout : 'form',
 		items : [ {
-				xtype : 'textfield',
-				fieldLabel : "运单号",
-				name : 'billNo',
-				width : 400,
-				allowBlank : false
+			xtype : 'textfield',
+			fieldLabel : "运单号",
+			name : 'billNo',
+			width : 400,
+			allowBlank : false
 		}, {
 			layout : 'column',
+			border : '0px solid #666',
 			items : [ {
 				xtype : 'datefield',
 				fieldLabel : "托运日期",
 				name : 'transTime',
-				format : 'Y-m-d h:i:s',
+				format : 'Y-m-d H:i:s',
 				selectOnFocus : true,
 				editable : false
 			}, {
 				xtype : 'textfield',
-				fieldLabel : "&nbsp;起运地点",
+				labelWidth : 60,
+				fieldLabel : "起运地点",
 				name : 'fromStation',
+				labelAlign : "right",
+				width : 350,
 				allowBlank : false
 			}, {
 				xtype : 'textfield',
-				fieldLabel : "&nbsp;到站",
+				labelWidth : 60,
+				fieldLabel : "到    站",
 				name : 'toStation',
+				labelAlign : "right",
+				width : 350,
 				allowBlank : false
 			} ]
 		}, {
@@ -48,16 +55,23 @@ Ext.define('app.view.biz.transbillmanage.add.Add', {
 			items : [ {
 				xtype : 'textfield',
 				fieldLabel : "收货单位（人）",
+				name : 'destCompany',
 				allowBlank : false
 			}, {
 				xtype : 'textfield',
-				fieldLabel : "&nbsp;收货方电话",
+				labelWidth : 60,
+				fieldLabel : "收货电话",
 				name : 'destTel',
+				labelAlign : "right",
+				width : 350,
 				allowBlank : false
 			}, {
 				xtype : 'textfield',
-				fieldLabel : "&nbsp;手机",
+				labelWidth : 60,
+				fieldLabel : "手    机",
 				name : 'destPhone',
+				labelAlign : "right",
+				width : 350,
 				allowBlank : false
 			} ]
 		}, {
@@ -66,12 +80,14 @@ Ext.define('app.view.biz.transbillmanage.add.Add', {
 				xtype : 'textfield',
 				fieldLabel : "收货地址",
 				name : 'destAddress',
-				width : 505,
+				width : 750,
 				allowBlank : false
 			}, {
 				xtype : 'textfield',
-				fieldLabel : "&nbsp;交付方式",
+				fieldLabel : "交付方式",
 				name : 'payType',
+				labelWidth : 60,
+				labelAlign : "right",
 				allowBlank : false
 			} ]
 		} ]
