@@ -8,7 +8,7 @@ import cn.com.cowboy.project.utils.PageSupport;
  * @author cowboy
  *
  */
-public interface UserBus extends BaseBus<Users, String>
+public interface UserBus extends BaseService<Users, String>
 {
 	/**
 	 * 修改密码

@@ -8,7 +8,7 @@ import cn.com.cowboy.project.utils.PageSupport;
  * @date ：2015年12月13日 下午9:09:41
  * @version 1.0
  */
-public interface TransBillBus extends BaseBus<TransBill, String>
+public interface TransBillBus extends BaseService<TransBill, String>
 {
 	/**
 	 * 
