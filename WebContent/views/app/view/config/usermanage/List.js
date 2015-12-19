@@ -59,6 +59,7 @@ Ext.define('app.view.config.usermanage.List', {
 			flex : 4.5,//占比9/20
 		}, {
 			header : "姓名",
+			dataIndex : "cnName",
 			flex : 4.5,//占比9/20
 		}, {
 			header : "所属部门",

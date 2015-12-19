@@ -5,9 +5,11 @@ Ext
 					extend : 'Ext.app.Controller',
 					views : [ 'app.view.leftmenu.LeftMenu',
 							'app.view.leftmenu.UserManageMenu',
-							'app.view.leftmenu.TransBillManageMenu'],
-					stores : [ 'app.store.leftmenu.UserManageMenuStore',  'app.store.leftmenu.TransBillManageMenuStore'],
-					models : [ 'app.model.leftmenu.UserManageMenuModel','app.model.leftmenu.TransBillManageMenuModel' ],
+							'app.view.leftmenu.TransBillManageMenu' ],
+					stores : [ 'app.store.leftmenu.UserManageMenuStore',
+							'app.store.leftmenu.TransBillManageMenuStore' ],
+					models : [ 'app.model.leftmenu.UserManageMenuModel',
+							'app.model.leftmenu.TransBillManageMenuModel' ],
 					init : function() {
 						this.control({
 							'usermanagemenu' : {
@@ -26,7 +28,7 @@ Ext
 					},
 					render : function() {
 						var usermanagemenu = Ext.getCmp("usermanagepanel");
-						//checkPrivilege(usermanagemenu, 5);
+						// checkPrivilege(usermanagemenu, 5);
 						Ext.getBody().unmask();
 
 					},
@@ -37,27 +39,29 @@ Ext
 									.reload();
 						}
 					},
-					transbillitemclick: function(view, record, item, rowIndex, e) {
-						 if (rowIndex == 0) {
-								var self = this;
-								if (!this.application.controllers
-										.get("app.controller.biz.transbillmanage.Controller")) {
-									Ext
-											.require(
-													"app.controller.biz.transbillmanage.Controller",
-													function() {
-														application
-																.getController('app.controller.biz.transbillmanage.Controller');
-													}, self);
-								} else {
-									newTab("transbillmanagelist", "transbillmanagelist",
-											"业务管理>运单管理", "运单管理");
-								}
-						 }
+					transbillitemclick : function(view, record, item, rowIndex,
+							e) {
+						if (rowIndex == 0) {
+							var self = this;
+							if (!this.application.controllers
+									.get("app.controller.biz.transbillmanage.Controller")) {
+								Ext
+										.require(
+												"app.controller.biz.transbillmanage.Controller",
+												function() {
+													application
+															.getController('app.controller.biz.transbillmanage.Controller');
+												}, self);
+							} else {
+								newTab("transbillmanagelist",
+										"transbillmanagelist", "业务管理>运单管理",
+										"运单管理");
+							}
+						}
 					},
 					// 系统设置菜单单击事件
 					configitemclick : function(view, record, item, rowIndex, e) {
-						 if  (rowIndex == 0) {
+						if (rowIndex == 0) {
 							var self = this;
 							if (!this.application.controllers
 									.get("app.controller.config.usermanage.Controller")) {
@@ -69,24 +73,24 @@ Ext
 															.getController('app.controller.config.usermanage.Controller');
 												}, self);
 							} else {
-								newTab("usermanagelist", "usermanagelist","系统管理>人员管理", "人员管理");
+								newTab("usermanagelist", "usermanagelist",
+										"系统管理>人员管理", "人员管理");
 							}
 						} else if (rowIndex == 1) {
 							var self = this;
-//							if (!this.application.controllers
-//									.get("app.controller.config.departmanage.Controller")) {
-//								Ext
-//										.require(
-//												"app.controller.config.departmanage.Controller",
-//												function() {
-//													application
-//															.getController('app.controller.config.departmanage.Controller');
-//												}, self);
-//							} else {
-//								newTab("departmanagelist", "departmanagelist",
-//										"系统管理>部门管理", "部门管理");
-//								this.addTab("departmanagelist", "departmanagelist","系统管理>部门管理", "部门管理");
-//							}
+							if (!this.application.controllers
+									.get("app.controller.config.departmanage.Controller")) {
+								Ext
+										.require(
+												"app.controller.config.departmanage.Controller",
+												function() {
+													application
+															.getController('app.controller.config.departmanage.Controller');
+												}, self);
+							} else {
+								newTab("departmanagelist", "departmanagelist",
+										"系统管理>部门管理", "部门管理");
+							}
 
 						} else if (rowIndex == 2) {
 							var self = this;
@@ -125,7 +129,7 @@ Ext
 							}
 
 						}
-						
+
 					},
 					/**
 					 * **id：新建tab的id type：新建tab里面嵌套的view record：点击的菜单名字

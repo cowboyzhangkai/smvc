@@ -11,7 +11,7 @@ Ext.define('app.view.leftmenu.LeftMenu', {
 	iconCls : 'menu',
 	width : 200,
 	items : [ {
-		title : '业务管理',
+		title : '运输管理',
 		iconCls : 'transbillmanage',
 		autoScroll : true,
 		xtype : "panel",

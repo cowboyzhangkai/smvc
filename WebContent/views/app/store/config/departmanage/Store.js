@@ -7,7 +7,7 @@ Ext.define('app.store.config.departmanage.Store', {
 			pageSize : 15,
 			proxy : {
 				type : 'ajax',
-				url : 'depart/getAllList',
+				url : '',
 				reader : {
 					type : 'json',
 					root : 'data',

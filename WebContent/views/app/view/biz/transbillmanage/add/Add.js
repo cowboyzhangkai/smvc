@@ -6,7 +6,7 @@ Ext.define('app.view.biz.transbillmanage.add.Add', {
 	alias : 'widget.addtransbillform',
 	baseCls : "",// 应用容器控件背景颜色
 	defaults : {
-		anchor : "100%"
+		anchor : "99%"
 	},
 	// 使用锚点布局设置缺省控件宽度
 	items : [ {
@@ -26,7 +26,8 @@ Ext.define('app.view.biz.transbillmanage.add.Add', {
 				name : 'transTime',
 				format : 'Y-m-d H:i:s',
 				selectOnFocus : true,
-				editable : false
+				editable : false,
+				allowBlank : false
 			}, {
 				xtype : 'textfield',
 				labelWidth : 60,
@@ -87,8 +88,7 @@ Ext.define('app.view.biz.transbillmanage.add.Add', {
 				fieldLabel : "交付方式",
 				name : 'payType',
 				labelWidth : 60,
-				labelAlign : "right",
-				allowBlank : false
+				labelAlign : "right"
 			} ]
 		} ]
 	} ],

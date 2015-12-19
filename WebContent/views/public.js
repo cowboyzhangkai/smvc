@@ -122,14 +122,15 @@ function newTab(id, type, name1, name) {
 			items : [{
 				xtype : 'panel',
 				anchor : '100% 5%',
-				border : false
+				border : false,
 				// 556677
-				
+				html : '<div style="color: #000;font-weight:bold;  padding: 0.3em 0.5em; border: 0px solid #d3d3d3;  background-color: #aad2f0; border-radius: 3px 3px 3px 3px;">'
+					+'您当前的位置：'+ name1 + '</div>'
 					// style : 'padding:0 20 10 20'
 			}, {
 				xtype : type,
 				anchor : '100% 95%',
-				style : 'padding:5 13 10 13'
+				style : 'padding:0 13 10 13'
 			}],
 			closable : true
 		});

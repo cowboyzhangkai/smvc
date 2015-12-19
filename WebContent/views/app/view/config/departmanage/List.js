@@ -29,24 +29,14 @@ Ext.define('app.view.config.departmanage.List', {
 						text : "删除",
 						iconCls : 'delete'
 					}, '->', {
-						fieldLabel : '部门名称:',
+						fieldLabel : '用户姓名:',
+						xtype : 'textfield',
 						labelWidth : 60,
-						width : 160,
-						// allowBlank : false,
-						// blankText : "搜索类型不能为空！",
-						// name:"searchType",
-						id : 'departSearch',
-						emptyText : '全部',
-						xtype : 'combo',
-						displayField : 'name',
-						valueField : 'id',
-						hiddenName : 'searchType',
-						forceSelection : true,
-						value : 'id',
-						triggerAction : 'all',
-						editable : false,
-						mode : 'local',
-						store : 'app.store.config.departmanage.DepartSimpleInfoStore'
+						width : 145,
+						id : 'name',
+						name : 'name',
+						blankText : '输入部门名称',
+						emptyText : '输入部门名称'
 					}, {
 						xtype : 'button',
 						action : 'search',
