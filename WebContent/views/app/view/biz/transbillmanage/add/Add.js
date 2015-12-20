@@ -4,6 +4,7 @@
 Ext.define('app.view.biz.transbillmanage.add.Add', {
 	extend : 'Ext.form.FormPanel',
 	alias : 'widget.addtransbillform',
+	requires: ['app.utils.DateTimeField'],
 	baseCls : "",// 应用容器控件背景颜色
 	defaults : {
 		anchor : "99%"
@@ -21,12 +22,12 @@ Ext.define('app.view.biz.transbillmanage.add.Add', {
 			layout : 'column',
 			border : '0px solid #666',
 			items : [ {
-				xtype : 'datefield',
+				xtype : 'datetimefield',
 				fieldLabel : "托运日期",
 				name : 'transTime',
-				format : 'Y-m-d H:i:s',
 				selectOnFocus : true,
-				editable : false,
+				width : 250,
+				format: 'Y-m-d H:i:s ',
 				allowBlank : false
 			}, {
 				xtype : 'textfield',

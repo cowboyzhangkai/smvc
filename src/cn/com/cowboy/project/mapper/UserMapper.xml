@@ -119,7 +119,7 @@
 			mobile = #{m.mobile},
 			phone = #{m.phone},
 			<if test="m.salt != null">salt = #{m.salt},</if>
-			<if test="m.department!=null">department.id = #{m.department.id},</if>
+			<if test="m.department!=null">department_id = #{m.department.id},</if>
 			is_active = #{m.isActive}
 		</set>
 		where id = #{id}

@@ -86,7 +86,7 @@
 			<if test="m.billNo != null">bill_no = #{m.billNo},</if>
 			trans_time = #{m.transTime},
 			from_station = #{m.fromStation},
-			to_station = #{m.toSation},
+			to_station = #{m.toStation},
 			trans_company=#{m.transCompany},
 			trans_phone=#{m.transPhone},
 			dest_company=#{m.destCompany},

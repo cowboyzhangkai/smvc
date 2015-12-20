@@ -33,7 +33,13 @@ public class TransBillController
 	@ResponseBody
 	public PageSupport<TransBill> list(@RequestParam("page") int page, TransBill example)
 	{
-		PageSupport<TransBill> p = transBillBus.findPageByExample(example, page, pageSize);
+		PageSupport<TransBill> p = null;
+		try
+		{
+			p = transBillBus.findPageByExample(example, page, pageSize);
+		} catch (Exception e)
+		{
+		}
 		return p;
 	}
 

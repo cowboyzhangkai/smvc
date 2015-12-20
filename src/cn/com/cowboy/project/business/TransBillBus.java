@@ -16,7 +16,7 @@ public interface TransBillBus extends BaseService<TransBill, String>
 	 * @param pageSize
 	 * @return
 	 */
-	public PageSupport<TransBill> findPageByExample(TransBill m, int pageNo, int pageSize);
+	public PageSupport<TransBill> findPageByExample(TransBill m, int pageNo, int pageSize) throws Exception;
 
 	/**
 	 * 批量删除
