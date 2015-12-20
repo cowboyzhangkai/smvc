@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.cowboy.project.dao.TransBillFlowMapper">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+
+	<resultMap id="TransBillFlowMap" type="TransBillFlow">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="station" property="station" jdbcType="VARCHAR" />
+		<result column="opt_time" property="optTime" jdbcType="VARCHAR" />
+		<association property="transBill" column="trans_bill_id"
+			javaType="TransBill" select="queryTransBill" />
+	</resultMap>
+
+	<select id="queryTransBill" resultType="TransBill">
+		select * from trans_bill
+		where id =#{id}
+	</select>
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				1=1
+				<if test="m.id != null"> and id = #{m.id}</if>
+				<!-- 模糊查询 -->
+				<if test="m.name != null">and name like CONCAT("%",#{m.name},"%")</if>
+			</trim>
+		</where>
+	</sql>
+
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="TransBillFlowMap">
+		select
+		*
+		from users
+	</select>
+
+	<!-- 根据id条件查询 -->
+	<select id="findById" resultMap="TransBillFlowMap">
+		select
+		*
+		from users
+		where id=#{id}
+	</select>
+
+
+	<!-- 根据条件基本查询 -->
+	<select id="findPageByExample" resultMap="TransBillFlowMap">
+		select u.*,d.* from trans_bill_flow u
+		left join trans_bill d on
+		u.trans_bill_id=d.id
+		<include refid="Base_Where_Clause" />
+		<if test="m.transBill != null">and d.bill_no like CONCAT("%",#{m.transBill.billNo},"%")
+		</if>
+		order by u.opt_time
+		limit #{pageNo,jdbcType=INTEGER} ,
+		#{pageSize,jdbcType=INTEGER}
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+		select
+		count(u.id)
+		from trans_bill_flow u
+		left join trans_bill d on
+		u.trans_bill_id=d.id
+		<include refid="Base_Where_Clause" />
+		<if test="m.transBill != null">and d.bill_no like CONCAT("%",#{m.transBill.billNo},"%")
+		</if>
+	</select>
+
+	<!-- 添加 -->
+	<insert id="save" parameterType="TransBillFlow" keyProperty="id">
+		insert into
+		trans_bill_flow
+		(id,trans_bill_id,station,opt_time)
+		values
+		(#{m.id},#{m.transBill.id},#{m.station},#{m.opt_time})
+	</insert>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from trans_bill_flow where
+		id=#{id}
+	</delete>
+
+	<!-- 根据ID修改 -->
+	<update id="updateById">
+		update trans_bill_flow
+		<set>
+			station = #{m.station},
+			opt_time = #{m.optTime},
+			<if test="m.transBill!=null">trans_bill_id= #{m.transBill.id},</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
