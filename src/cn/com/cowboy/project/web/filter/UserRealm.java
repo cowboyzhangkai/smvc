@@ -2,11 +2,11 @@ package cn.com.cowboy.project.web.filter;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -17,6 +17,7 @@ import cn.com.cowboy.project.utils.PasswordUtils;
 
 public class UserRealm extends AuthorizingRealm
 {
+	public static final String KEY_CAPTCHA = "validateCode";
 	@Resource
 	private UserBus userBus;
 
@@ -38,15 +39,22 @@ public class UserRealm extends AuthorizingRealm
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken paramAuthenticationToken)
-			throws AuthenticationException
 	{
-		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) paramAuthenticationToken;
-		String username = String.valueOf(usernamePasswordToken.getUsername());
-		String p = new String(usernamePasswordToken.getPassword());
+		UsernamePasswordCaptchaToken token = (UsernamePasswordCaptchaToken) paramAuthenticationToken;
+		String username = String.valueOf(token.getUsername());
+		String p = new String(token.getPassword());
 		Users user = userBus.findByName(username);
 		p = PasswordUtils.encryptPassword(user, p);
-		usernamePasswordToken.setPassword(p.toCharArray());
+		token.setPassword(p.toCharArray());
 		AuthenticationInfo authenticationInfo = null;
+		// 增加判断验证码逻辑
+		String captcha = token.getCaptcha();
+		String exitCode = (String) SecurityUtils.getSubject().getSession().getAttribute(KEY_CAPTCHA);
+		if (null == captcha || !captcha.equalsIgnoreCase(exitCode))
+		{
+			throw new AuthenticationException("验证码错误");
+		}
+
 		if (user != null)
 		{
 			authenticationInfo = new SimpleAuthenticationInfo(user.getName(), user.getPassword(), getName());

@@ -2,13 +2,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>星光物流台管理登录界面-www.phpjz.cn</title>
+<title>星光物流台管理登录界面</title>
 <link href="./static/css/alogin.css" rel="stylesheet" type="text/css" />
 <script src="./static/js/jquery/jquery.js"></script>
 <script type="text/javascript">
-function doSubmit(){
-	$("#myForm").submit();
-}
+	function doSubmit() {
+		$("#myForm").submit();
+	}
+	function reflush() {
+		$("#validateCodeImg").attr("src","./static/images/validateCode.jsp?"+Math.random()); 
+	}
 </script>
 </head>
 <body>
@@ -32,8 +35,10 @@ function doSubmit(){
 								name="password" type="password" class="txt" />
 						</span></li>
 						<li><span class="left">验证码：</span> <span style=""> <input
-								id="validateCode" type="text" class="txtCode" />
-						</span></li>
+								name="captcha" type="text" class="txtCode" /> <img alt=""
+								src="./static/images/validateCode.jsp" id="validateCodeImg">
+								
+						</span><span  style="cursor: pointer;"  onclick="reflush();return false;">看不清</span ></li>
 
 						<li><span class="left">记住我：</span> <input id="Checkbox1"
 							type="checkbox" /></li>
@@ -43,8 +48,9 @@ function doSubmit(){
 				<li class="topE"></li>
 				<li class="middle_A"></li>
 				<li class="middle_B"></li>
-				<li class="middle_C"><span class="btn" id="btnSub" onclick="doSubmit()"> <img
-						alt="" src="./static/images/login/btnlogin.gif" />
+				<li class="middle_C"><span class="btn" id="btnSub"
+					onclick="doSubmit()"> <img alt=""
+						src="./static/images/login/btnlogin.gif" />
 				</span></li>
 				<li class="middle_D"></li>
 				<li class="bottom_A"></li>
