@@ -1,27 +1,25 @@
-/**
- * 所有js变量和外部函数
- * 
- * @type String
- */
-var userinfo = "";
-var teaminfo;
-var box;
-var application;
-
-// role id
-var roleId = "00";
-var privilegestr = "";
 // 选中的id的数组
-
-function checkPrivilege(e, pCode) {
-	if (privilegestr != "") {
-		if (privilegestr.indexOf(pCode) >= 0) {
-			e.show();
-		} else {
-			e.hide();
-		}
+var Security = {
+	/*
+	 * 获取登录用户信息，并且保存起来。@param callback 可选参数，如果有，则加载完信息后执行callback.
+	 */
+	initUserInfo : function(callback) {
+		var url = '../sys/userInfo';
+		$.getJSON(url, function(data) {
+			$('body').data('user', data.user);
+			if ($.isFunction(callback)) {
+				callback();
+			}
+		});
+	},
+	getLoginUser : function() {
+		return $('body').data('user');
+	},
+	logout : function() {
+		location.href = '../logout';
 	}
-}
+};
+
 // 全选按钮事件
 function onSelectAll() {
 	var group = Ext.ComponentQuery.query("checkboxgroup")[0];
@@ -93,8 +91,8 @@ var selectNumberPlate = "";
 var extjsStyleChangedSign = window.extjsStyleChangedSign || false;
 function get_extjs_style_cookie() {
 	var extjs_style_cookie = new Ext.state.CookieProvider({
-				path : "/"
-			});
+		path : "/"
+	});
 	return extjs_style_cookie.get('extjs_style_cookie', 'ext-all.css');
 }
 var extjsStyleChangeTask = {
@@ -104,36 +102,40 @@ var extjsStyleChangeTask = {
 			var com = document.getElementById('extjs_style_link');
 			if (!!com) {
 				com.setAttribute('href', basePath + 'extjs/resources/css/'
-								+ style);
+						+ style);
 			}
 		}
 	},
 	interval : 1000
-	// 1 seconds
+// 1 seconds
 };
 function newTab(id, type, name1, name) {
 	if (!Ext.getCmp("rightpanel").getComponent(id)) {
-		Ext.getCmp("rightpanel").add({
-			title : name,
-			id : id,
-			xtype : 'panel',
-			border : false,
-			layout : 'anchor',
-			items : [{
-				xtype : 'panel',
-				anchor : '100% 5%',
-				border : false,
-				// 556677
-				html : '<div style="color: #000;font-weight:bold;  padding: 0.3em 0.5em; border: 0px solid #d3d3d3;  background-color: #aad2f0; border-radius: 3px 3px 3px 3px;">'
-					+'您当前的位置：'+ name1 + '</div>'
-					// style : 'padding:0 20 10 20'
-			}, {
-				xtype : type,
-				anchor : '100% 95%',
-				style : 'padding:0 13 10 13'
-			}],
-			closable : true
-		});
+		Ext
+				.getCmp("rightpanel")
+				.add(
+						{
+							title : name,
+							id : id,
+							xtype : 'panel',
+							border : false,
+							layout : 'anchor',
+							items : [
+									{
+										xtype : 'panel',
+										anchor : '100% 5%',
+										border : false,
+										// 556677
+										html : '<div style="color: #000;font-weight:bold;  padding: 0.3em 0.5em; border: 0px solid #d3d3d3;  background-color: #aad2f0; border-radius: 3px 3px 3px 3px;">'
+												+ '您当前的位置：' + name1 + '</div>'
+									// style : 'padding:0 20 10 20'
+									}, {
+										xtype : type,
+										anchor : '100% 95%',
+										style : 'padding:0 13 10 13'
+									} ],
+							closable : true
+						});
 	}
 	Ext.getCmp("rightpanel").setActiveTab(id);
 }
@@ -141,11 +143,6 @@ function newTab(id, type, name1, name) {
 function startAllTask() {
 	// 修改extjs样式
 	Ext.TaskManager.start(extjsStyleChangeTask);
-}
-
-function clickme() {
-	var rightPanel = Ext.ComponentQuery.query("rightpanel")[0];
-	this.addTab("updateuserinfo", "updateuserinfolist");
 }
 
 function clickhere() {

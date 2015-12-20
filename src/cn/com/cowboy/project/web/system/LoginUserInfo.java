@@ -4,8 +4,6 @@
  */
 package cn.com.cowboy.project.web.system;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.com.cowboy.project.business.UserBus;
 import cn.com.cowboy.project.entity.Users;
+import cn.com.cowboy.project.utils.SecurityHelper;
 
 /**
  * <b>类名称：</b>LoginUserInfo<br/>
@@ -30,7 +29,8 @@ import cn.com.cowboy.project.entity.Users;
 @RestController
 @Scope("prototype")
 @RequestMapping("/sys")
-public class LoginUserInfo {
+public class LoginUserInfo
+{
 
 	private Log logger = LogFactory.getLog(getClass());
 
@@ -43,8 +43,104 @@ public class LoginUserInfo {
 	 * </p>
 	 */
 	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-	public List<Users> userInfo() {
-		return null;
+	public UserInfo userInfo()
+	{
+		String loginUsername = SecurityHelper.getLoginUsername();
+		logger.debug("loginUsername: " + loginUsername);
+		return generateUserInfo(loginUsername);
 	}
 
+	/**
+	 * <p>
+	 * 构造UserInfo
+	 * </p>
+	 *
+	 * @param username
+	 *            登录用户
+	 * @return UserInfo
+	 */
+	private UserInfo generateUserInfo(String username)
+	{
+		Users user = userBus.findByName(username);
+		return new UserInfo(user);
+	}
+
+	public class UserInfo
+	{
+		private final User user;
+
+		// private final List<Privilege> privileges;
+		public UserInfo(Users user)
+		{
+			super();
+			this.user = new User(user);
+		}
+
+		/**
+		 * user
+		 *
+		 * @return the user
+		 */
+		public User getUser()
+		{
+			return user;
+		}
+	}
+
+	public class User
+	{
+		private final String id;
+		private final String name;
+		private final String cnName;
+		private final String phone;
+
+		public User(Users user)
+		{
+			super();
+			this.id = user.getId();
+			this.name = user.getName();
+			this.cnName = user.getCnName();
+			this.phone = user.getPhone();
+		}
+
+		/**
+		 * id
+		 *
+		 * @return the id
+		 */
+		public String getId()
+		{
+			return id;
+		}
+
+		/**
+		 * name
+		 *
+		 * @return the name
+		 */
+		public String getName()
+		{
+			return name;
+		}
+
+		/**
+		 * cnName
+		 *
+		 * @return the cnName
+		 */
+		public String getCnName()
+		{
+			return cnName;
+		}
+
+		/**
+		 * phone
+		 * 
+		 * @return the phone
+		 */
+		public String getPhone()
+		{
+			return phone;
+		}
+	}
 }
