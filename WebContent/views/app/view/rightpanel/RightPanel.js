@@ -13,7 +13,7 @@ Ext.define('app.view.rightpanel.RightPanel', {
 		border : '0 0',
 		style : 'background:transparent;',
 		items : [ {
-			text : '您好,'+Security.getLoginUser().cnName,
+			text : '系统设置',
 			height : 20,
 			menu : {
 				items : [ {

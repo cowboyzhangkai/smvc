@@ -7,15 +7,47 @@
 <script src="./static/js/jquery/jquery.js"></script>
 <script type="text/javascript">
 	function doSubmit() {
-		$("#myForm").submit();
+		if (validate()) {
+			$("#myForm").submit();
+		}
 	}
+	function validate() {
+		var flag = true;
+		if ($("#username").val() != null && $("#username").val().trim() != ""
+				&& $("#password").val() != null && $("#password").val().trim()) {
+			flag = true;
+		} else {
+			if($("#username").val() == null || $("#username").val().trim() == ""){
+				$("#username").next("span").text("*");
+				$("#username").next("span").css("color","red");
+				flag = false;
+			}
+			if($("#password").val() == null || $("#password").val().trim() == ""){
+				$("#password").next("span").text("*");
+				$("#password").next("span").css("color","red");
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	function aa(id) {
+		if ($("#" + id).val() != null && $("#" + id).val().trim() != "") {
+			$("#" + id).next("span").text("");
+		}else{
+			$("#" + id).next("span").text("*");
+			$("#" + id).next("span").css("color","red");
+		}
+	}
+
 	function reflush() {
-		$("#validateCodeImg").attr("src","./static/images/validateCode.jsp?"+Math.random()); 
+		$("#validateCodeImg").attr("src",
+				"./static/images/validateCode.jsp?" + Math.random());
 	}
 </script>
 </head>
 <body>
-	<form action="" id="myForm" method="post">
+	<form action="" id="myForm" method="post" onsubmit="validate()">
 		<div class="Main">
 			<ul>
 				<li class="top"></li>
@@ -28,20 +60,19 @@
 				<li class="topD">
 					<ul class="login">
 						<li><span class="left">用户名：</span> <span style=""> <input
-								name="username" type="text" class="txt" />
+								name="username" type="text" class="txt" id="username"
+								onchange="aa('username')" /><span></span>
 
 						</span></li>
 						<li><span class="left">密 码：</span> <span style=""> <input
-								name="password" type="password" class="txt" />
+								name="password" type="password" class="txt" id="password"
+								onchange="aa('password')" /><span></span>
 						</span></li>
 						<li><span class="left">验证码：</span> <span style=""> <input
 								name="captcha" type="text" class="txtCode" /> <img alt=""
 								src="./static/images/validateCode.jsp" id="validateCodeImg">
-								
-						</span><span  style="cursor: pointer;"  onclick="reflush();return false;">看不清</span ></li>
 
-						<li><span class="left">记住我：</span> <input id="Checkbox1"
-							type="checkbox" /></li>
+						</span><span style="cursor: pointer;" onclick="reflush();return false;">看不清</span></li>
 
 					</ul>
 				</li>

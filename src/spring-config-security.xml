@@ -26,7 +26,6 @@
 				/index.html*=anon
 
 				/static/**=anon
-				/servlet/* = anon
 				/login*=authc
 				/logout=logout
 

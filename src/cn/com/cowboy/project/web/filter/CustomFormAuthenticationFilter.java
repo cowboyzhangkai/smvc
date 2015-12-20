@@ -5,6 +5,13 @@
  */
 package cn.com.cowboy.project.web.filter;
 
+import java.io.IOException;
+
+import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
@@ -16,12 +23,6 @@ import org.apache.shiro.web.util.WebUtils;
 
 import cn.com.cowboy.project.business.UserBus;
 import cn.com.cowboy.project.utils.SecurityHelper;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 /**
  * <b>类名称：</b>CustomFormAuthenticationFilter<br/>
@@ -37,50 +38,48 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter
 
 	private final Log logger = LogFactory.getLog(getClass());
 
-	public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
-
-	private String captchaParam = DEFAULT_CAPTCHA_PARAM;
-
 	@Resource
 	private UserBus userBus;
-
-	public String getCaptchaParam()
-	{
-
-		return captchaParam;
-
-	}
-
-	protected String getCaptcha(ServletRequest request)
-	{
-
-		return WebUtils.getCleanParam(request, getCaptchaParam());
-
-	}
-
-	protected AuthenticationToken createToken(
-
-			ServletRequest request, ServletResponse response)
-	{
-
-		String username = getUsername(request);
-
-		String password = getPassword(request);
-
-		String captcha = getCaptcha(request);
-
-		boolean rememberMe = isRememberMe(request);
-
-		String host = getHost(request);
-
-		return new UsernamePasswordCaptchaToken(username, password.toCharArray(), rememberMe, host, captcha);
-
-	}
 
 	/**
 	 * 默认的成功地址
 	 */
 	private String defaultSuccessUrl;
+	
+	public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
+	 
+	private String captchaParam = DEFAULT_CAPTCHA_PARAM;
+ 
+	public String getCaptchaParam() {
+ 
+		return captchaParam;
+ 
+	}
+ 
+	protected String getCaptcha(ServletRequest request) {
+ 
+		return WebUtils.getCleanParam(request, getCaptchaParam());
+ 
+	}
+ 
+	protected AuthenticationToken createToken(
+ 
+	ServletRequest request, ServletResponse response) {
+ 
+		String username = getUsername(request);
+ 
+		String password = getPassword(request);
+ 
+		String captcha = getCaptcha(request);
+ 
+		boolean rememberMe = isRememberMe(request);
+ 
+		String host = getHost(request);
+ 
+		return new UsernamePasswordCaptchaToken(username,
+				password.toCharArray(), rememberMe, host, captcha);
+ 
+	}
 
 	@Override
 	protected void setFailureAttribute(ServletRequest request, AuthenticationException ae)
