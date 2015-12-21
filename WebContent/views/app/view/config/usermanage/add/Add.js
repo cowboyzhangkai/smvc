@@ -32,16 +32,20 @@ Ext.define('app.view.config.usermanage.add.Add', {
 		allowBlank : false,
 		width : 100,
 		minChars : 6,
+		 maxLength: 24, 
 		style : 'margin:20px 5px 0px;'
 	}, {
 		xtype : 'textfield',
 		inputType : 'password',
-		fieldLabel : "确认密码",
-		name : 'password2',
+        fieldLabel: '重复密码',  
+        name : 'password2',
 		allowBlank : false,
 		width : 100,
 		minChars : 6,
-		style : 'margin:20px 5px 0px;'
+	    maxLength: 24, 
+		style : 'margin:20px 5px 0px;',
+        vtype: 'repetition',  //指定repetition验证类型  
+        repetition: { targetCmpId: 'password' }  //配置repetition验证，提供目标组件（表单）ID  
 	}
 
 	// , {

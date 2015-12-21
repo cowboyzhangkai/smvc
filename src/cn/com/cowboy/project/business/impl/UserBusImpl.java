@@ -6,8 +6,6 @@ import java.util.UUID;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -20,22 +18,17 @@ import cn.com.cowboy.project.utils.PasswordUtils;
 @Service("userBus")
 public class UserBusImpl implements UserBus
 {
-	private static final Log logger = LogFactory.getLog(UserBusImpl.class);
 	@Resource
 	private UserMapper userMapper;
 
 	@Override
-	public void changePwd(String id, String newPwd)
+	public void changeOwnPwd(String id, String newPwd)
 	{
 		Assert.notNull(id);
 		Assert.notNull(newPwd);
-		try
-		{
-			userMapper.changePwd(id, newPwd);
-		} catch (Exception e)
-		{
-			logger.debug("修改密码出错！语句", e);
-		}
+		Users u = userMapper.findById(id);
+		u.setPassword(PasswordUtils.encryptPassword(u, newPwd));
+		userMapper.changeOwnPwd(id, u.getPassword());
 	}
 
 	@Override

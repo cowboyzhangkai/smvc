@@ -8,5 +8,5 @@ public interface UserMapper extends BaseMapper<Users, String>
 {
 	Users findByName(@Param("loginName") String loginName);
 
-	void changePwd(@Param("id") String id, @Param("newPwd") String newPwd);
+	void changeOwnPwd(@Param("id") String id, @Param("newPwd") String newPwd);
 }

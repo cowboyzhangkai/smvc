@@ -16,7 +16,7 @@ public interface UserBus extends BaseService<Users, String>
 	 * @param id
 	 * @param newPwd
 	 */
-	public void changePwd(String id, String newPwd);
+	public void changeOwnPwd(String id, String newPwd);
 
 	/**
 	 * 根据登录名获取登录用户

@@ -118,7 +118,7 @@
 			gender = #{m.gender},
 			mobile = #{m.mobile},
 			phone = #{m.phone},
-			<if test="m.salt != null">salt = #{m.salt},</if>
+			<if test="m.salt!=null">salt=#{m.salt},</if>
 			<if test="m.department!=null">department_id = #{m.department.id},</if>
 			is_active = #{m.isActive}
 		</set>
@@ -126,10 +126,10 @@
 	</update>
 
 	<!-- 根据ID修改密码 -->
-	<update id="changePwd" parameterType="java.lang.String">
+	<update id="changeOwnPwd">
 		update users
 		<set>
-			<if test="m.password != null">password = Md5(#{newPwd})</if>
+			<if test="newPwd != null">password=#{newPwd}</if>
 		</set>
 		where id = #{id}
 	</update>

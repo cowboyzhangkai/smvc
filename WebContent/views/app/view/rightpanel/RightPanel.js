@@ -17,6 +17,7 @@ Ext.define('app.view.rightpanel.RightPanel', {
 			height : 20,
 			menu : {
 				items : [ {
+					id:'pwdMenu',
 					text : '修改密码'
 				}, {
 					text : '退出系统',

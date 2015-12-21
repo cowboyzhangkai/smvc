@@ -11,10 +11,12 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.com.cowboy.project.business.UserBus;
 import cn.com.cowboy.project.entity.Users;
+import cn.com.cowboy.project.utils.ResponseJson;
 import cn.com.cowboy.project.utils.SecurityHelper;
 
 /**
@@ -48,6 +50,31 @@ public class LoginUserInfo
 		String loginUsername = SecurityHelper.getLoginUsername();
 		logger.debug("loginUsername: " + loginUsername);
 		return generateUserInfo(loginUsername);
+	}
+
+	/**
+	 * <p>
+	 * 用户更改自己的登陆密码
+	 * </p>
+	 */
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseJson changePassword(String id, String newPassword)
+	{
+		ResponseJson retJson = new ResponseJson();
+		try
+		{
+			userBus.changeOwnPwd(id, newPassword);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			retJson.setSuccess(false);
+			retJson.setMsg("修改失败");
+			return retJson;
+		}
+		retJson.setSuccess(true);
+		retJson.setMsg("修改成功");
+		return retJson;
 	}
 
 	/**
