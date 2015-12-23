@@ -24,6 +24,8 @@
 				/sys/loginFaild*=anon
 				/index.jsp*=anon
 				/index.html*=anon
+				
+			   /filter/validateCode*=anon
 
 				/static/**=anon
 				/login*=authc

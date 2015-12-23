@@ -17,7 +17,6 @@ import cn.com.cowboy.project.utils.PasswordUtils;
 
 public class UserRealm extends AuthorizingRealm
 {
-	public static final String KEY_CAPTCHA = "validateCode";
 	@Resource
 	private UserBus userBus;
 
@@ -49,7 +48,7 @@ public class UserRealm extends AuthorizingRealm
 		AuthenticationInfo authenticationInfo = null;
 		// 增加判断验证码逻辑
 		String captcha = token.getCaptcha();
-		String exitCode = (String) SecurityUtils.getSubject().getSession().getAttribute(KEY_CAPTCHA);
+		String exitCode = (String) SecurityUtils.getSubject().getSession().getAttribute(CaptchaFilter.KEY_CAPTCHA);
 		if (null == captcha || !captcha.equalsIgnoreCase(exitCode))
 		{
 			throw new AuthenticationException("验证码错误");

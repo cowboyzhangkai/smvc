@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
 <title>星光物流台管理登录界面</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="">
+<meta http-equiv="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
 <link href="./static/css/alogin.css" rel="stylesheet" type="text/css" />
 <script src="./static/js/jquery/jquery.js"></script>
 <script type="text/javascript">
@@ -17,14 +25,16 @@
 				&& $("#password").val() != null && $("#password").val().trim()) {
 			flag = true;
 		} else {
-			if($("#username").val() == null || $("#username").val().trim() == ""){
+			if ($("#username").val() == null
+					|| $("#username").val().trim() == "") {
 				$("#username").next("span").text("*");
-				$("#username").next("span").css("color","red");
+				$("#username").next("span").css("color", "red");
 				flag = false;
 			}
-			if($("#password").val() == null || $("#password").val().trim() == ""){
+			if ($("#password").val() == null
+					|| $("#password").val().trim() == "") {
 				$("#password").next("span").text("*");
-				$("#password").next("span").css("color","red");
+				$("#password").next("span").css("color", "red");
 				flag = false;
 			}
 		}
@@ -34,15 +44,20 @@
 	function aa(id) {
 		if ($("#" + id).val() != null && $("#" + id).val().trim() != "") {
 			$("#" + id).next("span").text("");
-		}else{
+		} else {
 			$("#" + id).next("span").text("*");
-			$("#" + id).next("span").css("color","red");
+			$("#" + id).next("span").css("color", "red");
 		}
 	}
 
+	$(function() {
+		$("#validateCodeImg").attr("src",
+				"./filter/validateCode.do?" + Math.random());
+	});
+
 	function reflush() {
 		$("#validateCodeImg").attr("src",
-				"./static/images/validateCode.jsp?" + Math.random());
+				"./filter/validateCode.do?" + Math.random());
 	}
 </script>
 </head>
@@ -70,9 +85,11 @@
 						</span></li>
 						<li><span class="left">验证码：</span> <span style=""> <input
 								name="captcha" type="text" class="txtCode" /> <img alt=""
-								src="./static/images/validateCode.jsp" id="validateCodeImg">
+								src="" id="validateCodeImg">
 
-						</span><span style="cursor: pointer;" onclick="reflush();return false;">看不清</span></li>
+						</span><a
+							style="cursor: pointer; text-decoration: underline; color: blue;"
+							onclick="reflush();return false;">看不清</a></li>
 
 					</ul>
 				</li>

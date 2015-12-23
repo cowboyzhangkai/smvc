@@ -43,9 +43,7 @@ Ext.define('app.view.config.usermanage.add.Add', {
 		width : 100,
 		minChars : 6,
 	    maxLength: 24, 
-		style : 'margin:20px 5px 0px;',
-        vtype: 'repetition',  //指定repetition验证类型  
-        repetition: { targetCmpId: 'password' }  //配置repetition验证，提供目标组件（表单）ID  
+		style : 'margin:20px 5px 0px;'
 	}
 
 	// , {

@@ -160,6 +160,7 @@ Ext.define('app.controller.config.usermanage.Controller', {
 				if (temp.success) {
 					var win = Ext.ComponentQuery.query("edituserwindow")[0];
 					win.close();
+					thisgrid.getStore().loadRawData();
 					thisgrid.getStore().reload();
 					return true;
 				} else {

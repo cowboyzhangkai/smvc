@@ -188,6 +188,7 @@ Ext
 													var win = Ext.ComponentQuery
 															.query("edittransbillwindow")[0];
 													win.close();
+													thisgrid.getStore().loadRawData();
 													thisgrid.getStore()
 															.reload();
 													return true;
@@ -321,10 +322,7 @@ Ext
 							Ext.ComponentQuery.query("edittransbillwindow")[0]
 									.show();
 						}
-						// if (Ext.ComponentQuery.query("edittransbillform")[0])
-						// {
-						// Ext.ComponentQuery.query("edittransbillform")[0].getForm().reset();
-						// }
+						
 						// 填充表单
 						Ext.ComponentQuery.query("edittransbillform")[0]
 								.getForm().setValues([ {
