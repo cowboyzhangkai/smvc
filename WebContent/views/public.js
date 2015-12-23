@@ -16,7 +16,12 @@ var Security = {
 		return $('body').data('user');
 	},
 	logout : function() {
-		location.href = '../logout';
+		var url = '../logout';
+		var $f = $('<form>', {
+			action : url,
+			method : 'post'
+		});
+		$f.appendTo('body').submit();
 	}
 };
 
