@@ -20,6 +20,18 @@ Ext.define('app.view.leftmenu.LeftMenu', {
 			xtype : 'transbillmanagemenu'
 		} ]
 	}, {
+		title : '结算管理',
+		iconCls : 'accountmanage',
+		autoScroll : true,
+		xtype : "panel",
+		id : 'accountmanagepanel'
+	}, {
+		title : '报表管理',
+		iconCls : 'reportmanage',
+		autoScroll : true,
+		xtype : "panel",
+		id : 'reportmanagepanel'
+	}, {
 		title : '系统管理',
 		iconCls : 'usermanage',
 		autoScroll : true,

@@ -26,6 +26,7 @@ import cn.com.cowboy.project.utils.PageSupport;
 @Service("transBillBus")
 public class TransBillBusImpl implements TransBillBus
 {
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	@Resource
 	private TransBillMapper transBillMapper;
 
@@ -47,6 +48,7 @@ public class TransBillBusImpl implements TransBillBus
 		Validate.notNull(m);
 		Validate.notNull(m.getBillNo());
 		m.setId(UUID.randomUUID().toString());
+		m.setCreateTime(sdf.format(new Date()));
 		transBillMapper.save(m);
 	}
 
@@ -75,7 +77,7 @@ public class TransBillBusImpl implements TransBillBus
 			{
 				if (StringUtils.isNotBlank(transBill.getTransTime()))
 				{
-					Date date=sdf.parse(transBill.getTransTime());
+					Date date = sdf.parse(transBill.getTransTime());
 					transBill.setTransTime(sdf.format(date));
 				}
 			}

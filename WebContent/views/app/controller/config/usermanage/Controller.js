@@ -5,7 +5,7 @@ Ext.define('app.controller.config.usermanage.Controller', {
 	models : ['app.model.config.usermanage.Model'],
 	init : function() {
 		// 以下这行防止要点击2次左边的菜单栏才显示右边的表格
-		newTab("usermanagelist", "usermanagelist", "用户管理>人员管理", "人员管理");
+		newTab("usermanagelist", "usermanagelist", "系统管理>人员管理", "人员管理");
 		// 给store添加监听事件,捕获登陆session过期的异常信息
 		// 添加分页监听事件
 		Ext.getCmp('userManagerPagingToolbarId').on("beforechange",

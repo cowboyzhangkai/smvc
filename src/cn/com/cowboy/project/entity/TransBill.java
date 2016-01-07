@@ -64,6 +64,11 @@ public class TransBill extends BaseEntity<String>
 	 */
 	private String payType;
 
+	/**
+	 * 创建时间
+	 */
+	private String createTime;
+
 	public String getId()
 	{
 		return id;
@@ -182,6 +187,16 @@ public class TransBill extends BaseEntity<String>
 	public void setPayType(String payType)
 	{
 		this.payType = payType;
+	}
+
+	public String getCreateTime()
+	{
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime)
+	{
+		this.createTime = createTime;
 	}
 
 }

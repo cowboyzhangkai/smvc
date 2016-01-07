@@ -17,6 +17,7 @@
 		<result column="dest_phone" property="destPhone" jdbcType="VARCHAR" />
 		<result column="dest_address" property="destAddress" jdbcType="VARCHAR" />
 		<result column="pay_type" property="payType" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
 	</resultMap>
 
 
@@ -68,9 +69,9 @@
 		insert
 		into
 		trans_bill
-		(id,bill_no,trans_time,from_station,to_station,trans_company,trans_phone,dest_company,dest_tel,dest_phone,dest_address,pay_type)
+		(id,bill_no,trans_time,from_station,to_station,trans_company,trans_phone,dest_company,dest_tel,dest_phone,dest_address,pay_type,create_time)
 		values
-		(#{m.id},#{m.billNo},#{m.transTime},#{m.fromStation},#{m.toStation},#{m.transCompany},#{m.transPhone},#{m.destCompany},#{m.destTel},#{m.destPhone},#{m.destAddress},#{m.payType})
+		(#{m.id},#{m.billNo},#{m.transTime},#{m.fromStation},#{m.toStation},#{m.transCompany},#{m.transPhone},#{m.destCompany},#{m.destTel},#{m.destPhone},#{m.destAddress},#{m.payType},#{m.createTime})
 	</insert>
 
 	<!-- 删除 -->

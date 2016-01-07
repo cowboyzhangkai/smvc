@@ -7,6 +7,7 @@
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="station" property="station" jdbcType="VARCHAR" />
 		<result column="opt_time" property="optTime" jdbcType="VARCHAR" />
+		<result column="is_assign" property="isAssign" jdbcType="VARCHAR" />
 		<association property="transBill" column="trans_bill_id"
 			javaType="TransBill" select="queryTransBill" />
 	</resultMap>
@@ -71,14 +72,15 @@
 	<insert id="save" parameterType="TransBillFlow" keyProperty="id">
 		insert into
 		trans_bill_flow
-		(id,trans_bill_id,station,opt_time)
+		(id,trans_bill_id,station,opt_time,is_assign)
 		values
-		(#{m.id},#{m.transBill.id},#{m.station},#{m.opt_time})
+		(#{m.id},#{m.transBill.id},#{m.station},#{m.opt_time}),#{m.isAssign})
 	</insert>
 
 	<!-- 删除 -->
 	<delete id="delete" parameterType="java.lang.String">
-		delete from trans_bill_flow where
+		delete from trans_bill_flow
+		where
 		id=#{id}
 	</delete>
 
@@ -88,6 +90,7 @@
 		<set>
 			station = #{m.station},
 			opt_time = #{m.optTime},
+			is_assign = #{m.isAssign},
 			<if test="m.transBill!=null">trans_bill_id= #{m.transBill.id},</if>
 		</set>
 		where id = #{id}

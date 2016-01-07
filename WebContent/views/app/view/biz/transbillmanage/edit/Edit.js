@@ -62,6 +62,7 @@ Ext.define('app.view.biz.transbillmanage.edit.Edit', {
 				xtype : 'textfield',
 				fieldLabel : "收货单位（人）",
 				name : 'destCompany',
+				width : 250,
 				allowBlank : false
 			}, {
 				xtype : 'textfield',

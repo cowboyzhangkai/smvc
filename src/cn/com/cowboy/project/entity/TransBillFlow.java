@@ -32,6 +32,11 @@ public class TransBillFlow extends BaseEntity<String>
 	 */
 	private Date optTime;
 
+	/**
+	 * 是否签收
+	 */
+	private Boolean isAssign;
+
 	public String getId()
 	{
 		return id;
@@ -70,6 +75,16 @@ public class TransBillFlow extends BaseEntity<String>
 	public void setOptTime(Date optTime)
 	{
 		this.optTime = optTime;
+	}
+
+	public Boolean getIsAssign()
+	{
+		return isAssign;
+	}
+
+	public void setIsAssign(Boolean isAssign)
+	{
+		this.isAssign = isAssign;
 	}
 
 }
