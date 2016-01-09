@@ -1,7 +1,0 @@
-#hibernate 配置文件信息，此文件仅供快速生成映射实体用。
-
-hibernate.connection.driver_class=com.mysql.jdbc.Driver
-hibernate.connection.url=jdbc:mysql://127.0.0.1:3306/ygxt?useUnicode=true&characterEncoding=UTF-8
-hibernate.connection.username=root
-hibernate.connection.password=111111
-hibernate.dialect=org.hibernate.dialect.MySQLDialect

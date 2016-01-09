@@ -7,6 +7,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -43,6 +44,10 @@ public class UserRealm extends AuthorizingRealm
 		String username = String.valueOf(token.getUsername());
 		String p = new String(token.getPassword());
 		Users user = userBus.findByName(username);
+		if (user == null)
+		{
+			throw new UnknownAccountException();// 没找到帐号
+		}
 		p = PasswordUtils.encryptPassword(user, p);
 		token.setPassword(p.toCharArray());
 		AuthenticationInfo authenticationInfo = null;
